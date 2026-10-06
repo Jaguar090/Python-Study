@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "category": "Step 1: 手続き的アルゴリズムの基礎",
+    "title": "第1問：手動での合計と平均値算出",
+    "description": "<h4>【合計と平均の手動計算】</h4><p>アルゴリズムの基本は<strong>「変数を0で用意し、ループで1件ずつ足し込む」</strong>ことです。<br>平均値は求めた合計をデータの件数（<code>len()</code> で取得）で割って求めます。今回は端数を切り捨てるため、整数の商を求める演算子 <code>//</code> を使用しましょう。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonにはリストの合計を直接計算できる <code>sum()</code> 関数が標準で用意されています。例えば <code>sum(scores)</code> と書くだけで合計値を計算できます。</p>",
+    "task": "<p>リスト <code>scores</code> にテストの点数が記録されています。<br><code>sum()</code> などの便利関数を使わずに、ループ処理で合計点と平均点（切り捨て整数）を計算し、それぞれ出力してください。<br>（1行目に合計、2行目に平均を出力）</p>",
+    "initial_code": "scores = [70, 85, 60, 95, 80]\n\n# ここに合計と平均を計算するコードを書いてください\n# ※ sum() などの便利関数は使わないでください\n\n",
+    "expected_output": "390\n78",
+    "model_answer": "scores = [70, 85, 60, 95, 80]\n\ntotal = 0                     # 合計を入れる変数を0で初期化\nfor score in scores:\n    total += score            # 1つずつ足し合わせる\n\navg = total // len(scores)    # 合計を要素数で割って平均（整数）を求める\n\nprint(total)\nprint(avg)"
+  },
+  {
+    "id": 2,
+    "category": "Step 1: 手続き的アルゴリズムの基礎",
+    "title": "第2問：手動での最小値探索",
+    "description": "<h4>【最小値の探索アルゴリズム】</h4><p>最小値を探すときは、まず<strong>リストの先頭（0番目）の値を「暫定の最小値」</strong>として変数に入れておきます。<br>その後、ループで2番目以降の要素と順に比較し、もし暫定値よりも小さい値が見つかったら、その都度変数の値を更新していくのが基本の手順です。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonには最小値を取得する <code>min()</code> 関数や、最大値を取得する <code>max()</code> 関数が用意されています。例えば <code>min(temps)</code> や <code>max(temps)</code> のようにリストを丸ごと渡すだけで、手動探索を行わなくても最も小さい値や大きい値を取得できます。</p>",
+    "task": "<p>リスト <code>temps</code> に1週間の最低気温が記録されています。<br><code>min()</code> 関数を使わずに、ループと条件分岐を使って最も低い気温（最小値）を求め、出力してください。</p>",
+    "initial_code": "temps = [12, 9, 15, 6, 8, 11, 7]\n\n# ここに最小値を求めるコードを書いてください\n# ※ min() 関数は使わないでください\n\n",
+    "expected_output": "6",
+    "model_answer": "temps = [12, 9, 15, 6, 8, 11, 7]\n\nmin_temp = temps[0]           # 先頭の値を暫定の最小値とする\nfor t in temps:\n    if t < min_temp:          # より小さい値が見つかったら\n        min_temp = t          # 最小値を更新する\n\nprint(min_temp)"
+  },
+  {
+    "id": 3,
+    "category": "Step 1: 手続き的アルゴリズムの基礎",
+    "title": "第3問：指定範囲の値のカウント",
+    "description": "<h4>【条件を満たす件数の数え上げ】</h4><p>「〇〇以上 かつ 〇〇未満」のような一定範囲に入るデータ件数を数えるときは、まず件数を記録するカウンタ変数を 0 で初期化します。<br>ループ内でデータを1つずつ取り出し、論理演算子 <code>and</code> を用いた <code>if</code> 文で条件を満たしている場合のみ、カウンタに 1 を加算していきます。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonでは <code>if 60 &lt;= s &lt; 80:</code> のように、数学の不等式と同じ書き方で範囲条件を指定することも可能です。</p>",
+    "task": "<p>リスト <code>scores</code> から、<strong>「60点以上 かつ 80点未満」</strong>の点数を取った生徒の人数をカウントし、その人数を出力してください。</p>",
+    "initial_code": "scores = [55, 72, 60, 80, 79, 90, 68, 85]\n\n# ここに条件を満たす人数をカウントするコードを書いてください\n\n",
+    "expected_output": "4",
+    "model_answer": "scores = [55, 72, 60, 80, 79, 90, 68, 85]\n\ncount = 0                     # 人数を数えるカウンタを初期化\nfor s in scores:\n    if s >= 60 and s < 80:    # 60以上かつ80未満の判定\n        count += 1            # 条件を満たしたら1増やす\n\nprint(count)"
+  },
+  {
+    "id": 4,
+    "category": "Step 1: 手続き的アルゴリズムの基礎",
+    "title": "第4問：値の出現位置（インデックス）の特定",
+    "description": "<h4>【手動での位置（インデックス）特定】</h4><p>目的の値がリストの何番目（インデックス何番）にあるかを調べるには、要素そのものではなく <code>range(len(リスト))</code> を使ってインデックス番号でループを回します。<br>見つからなかった場合の保険として初期値に <code>-1</code> などを入れておき、目的の値と一致した時点でそのインデックスを記録して、<code>break</code> でループを打ち切るのが定石です。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonのリストには、特定の値がある位置を調べる <code>.index()</code> メソッドがあります。例えば <code>numbers.index(7)</code> と書くと、最初に 7 が登場するインデックス番号を返してくれます。ただし探す値がリスト内に存在しないとエラーになるため注意が必要です。</p>",
+    "task": "<p>リスト <code>numbers</code> の中から、最初に数値 <code>7</code> が現れる<strong>位置（インデックス番号）</strong>を探し出して出力してください。<br>※ <code>.index()</code> メソッドは使わずに、<code>for</code> ループと <code>range()</code> を使ってインデックスを調べてください。</p>",
+    "initial_code": "numbers = [3, 8, 2, 7, 5, 7, 1]\n\n# ここに 7 が最初に現れるインデックスを探すコードを書いてください\n# ※ .index() メソッドは使わないでください\n\n",
+    "expected_output": "3",
+    "model_answer": "numbers = [3, 8, 2, 7, 5, 7, 1]\n\npos = -1                      # 見つからない場合の初期値\nfor i in range(len(numbers)): # インデックスでループ\n    if numbers[i] == 7:\n        pos = i               # 見つかった位置を記録\n        break                 # 最初の1つで探索を打ち切る\n\nprint(pos)"
+  },
+  {
+    "id": 5,
+    "category": "Step 2: 状態の管理とフラグ処理",
+    "title": "第5問：目標達成判定（フラグによる有無の確認）",
+    "description": "<h4>【1つでも条件を満たすかの判定】</h4><p>「データの中に条件を満たすものが1つでもあるか」を調べるには、真偽値（<code>True</code> / <code>False</code>）を記録する<strong>フラグ変数</strong>を使います。<br>最初にフラグを「まだ見つかっていない」状態（<code>False</code>）にしておき、ループ中に条件に合致する値を検出した瞬間に「見つかった」状態（<code>True</code>）へ切り替えます。一度見つかればそれ以上調べる必要はないため、<code>break</code> でループを終了するのが効率的です。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonには、リストなどのまとまったデータの中に True が1つでもあるかを判定する <code>any()</code> という組み込み関数が用意されています。</p>",
+    "task": "<p>リスト <code>steps</code> に1週間の歩数が記録されています。<br>「10,000歩以上」歩いた日が1日でもあったかどうかを判定し、あれば <code>True</code>、1日もなければ <code>False</code> を出力してください。</p>",
+    "initial_code": "steps = [8200, 9500, 7100, 10400, 6800, 9900, 8500]\n\n# ここに目標達成日があるか判定するコードを書いてください\n\n",
+    "expected_output": "True",
+    "model_answer": "steps = [8200, 9500, 7100, 10400, 6800, 9900, 8500]\n\nachieved = False              # 初期状態は「未達成（False）」\nfor s in steps:\n    if s >= 10000:            # 1万歩以上の日を見つけたら\n        achieved = True       # フラグを達成（True）に変更\n        break                 # 見つかったのでループを終了\n\nprint(achieved)"
+  },
+  {
+    "id": 6,
+    "category": "Step 2: 状態の管理とフラグ処理",
+    "title": "第6問：完全クリア判定（すべての要素が条件を満たすか）",
+    "description": "<h4>【すべてが条件を満たすかの判定】</h4><p>「すべてのデータが条件を満たしているか」を調べる場合は、先ほどと逆に考えます。<br>まずフラグ変数を「すべて満たしている」状態（<code>True</code>）で初期化しておきます。ループの中で<strong>「条件を満たしていない要素（反例）」が1つでも見つかったら、フラグを <code>False</code> に書き換えて即座にループを打ち切ります</strong>。<br>最後まで反例が見つからなければ、初期値の <code>True</code> がそのまま残ります。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonには、リストなどのまとまったデータの中にある要素がすべて True であるかを確認する <code>all()</code> という組み込み関数が用意されています。</p>",
+    "task": "<p>リスト <code>submissions</code> に生徒全員の課題提出状況（提出済み: <code>1</code>, 未提出: <code>0</code>）が記録されています。<br>「全員が提出しているか」を判定し、全員提出なら <code>True</code>、1人でも未提出がいれば <code>False</code> を出力してください。</p>",
+    "initial_code": "submissions = [1, 1, 1, 0, 1, 1]\n\n# ここに全員提出かを判定するコードを書いてください\n\n",
+    "expected_output": "False",
+    "model_answer": "submissions = [1, 1, 1, 0, 1, 1]\n\nall_submitted = True          # 最初は「全員提出（True）」と仮定する\nfor sub in submissions:\n    if sub == 0:              # 未提出（0）の人が1人でもいたら\n        all_submitted = False # フラグをFalseに変更\n        break                 # 反例が見つかったので探索終了\n\nprint(all_submitted)"
+  },
+  {
+    "id": 7,
+    "category": "Step 2: 状態の管理とフラグ処理",
+    "title": "第7問：前日との比較（隣接要素の参照）",
+    "description": "<h4>【隣り合うデータの比較とインデックス範囲】</h4><p>「前日より増えたか」のように隣り合う要素同士を比べる場合は、インデックス番号を使ったループが不可欠です。<br><code>i</code> 番目と <code>i - 1</code> 番目を比べる場合、<code>i = 0</code> から始めると <code>i - 1</code> が末尾を指してしまうなどの不具合が起きるため、<strong>ループの開始番号を <code>1</code> に設定（<code>range(1, len(リスト))</code>）</strong>して、2番目の要素から前日と比較していくのが安全なアルゴリズムです。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonにはリストの一部分を切り出す<strong>スライス</strong>という機能があります。<code>prices[1:]</code> と書くと2番目以降のデータだけを取り出すことができ、これと前日のデータを組み合わせる高度な書き方も存在します。</p>",
+    "task": "<p>リスト <code>prices</code> にある商品の毎日の価格変化が記録されています。<br>「前日の価格より値上がりした日数」をカウントし、その日数を出力してください。</p>",
+    "initial_code": "prices = [100, 105, 103, 108, 112, 110, 115]\n\n# ここに前日より値上がりした日数を数えるコードを書いてください\n\n",
+    "expected_output": "4",
+    "model_answer": "prices = [100, 105, 103, 108, 112, 110, 115]\n\nup_count = 0                  # 値上がり日数のカウンタ\nfor i in range(1, len(prices)): # 2日目（インデックス1）から開始\n    if prices[i] > prices[i - 1]: # 当日の価格が前日より高いか判定\n        up_count += 1         # 高ければカウントを1増やす\n\nprint(up_count)"
+  },
+  {
+    "id": 8,
+    "category": "Step 2: 状態の管理とフラグ処理",
+    "title": "第8問：交互の並び判定",
+    "description": "<h4>【隣同士が異なっているかの判定】</h4><p>データが <code>0</code> と <code>1</code> で交互に切り替わっているかを確認するには、「隣り合う2つの値が同じになっていないか」をチェックします。<br>前問と同様にインデックス <code>1</code> から順にループし、もし「現在の値と直前の値が等しい（同じ値が連続している）」箇所が1つでもあれば、交互の規則性が崩れたと判定して <code>False</code> に切り替えます。</p><h4>【考え方のポイント】</h4><p>「交互である」ことを証明するには最後まで調べる必要がありますが、「交互ではない」ことは1組でも同じ並びを見つければ確定します。この考え方は多くの判定アルゴリズムで役立ちます。</p>",
+    "task": "<p>リスト <code>signals</code> に <code>0</code> と <code>1</code> の信号データが並んでいます。<br>データが完全に交互（隣り合う値が常に異なる状態）になっているかを判定し、交互であれば <code>True</code>、同じ値が連続する箇所が1つでもあれば <code>False</code> を出力してください。</p>",
+    "initial_code": "signals = [0, 1, 0, 1, 0, 1, 0]\n\n# ここに交互に並んでいるかを判定するコードを書いてください\n\n",
+    "expected_output": "True",
+    "model_answer": "signals = [0, 1, 0, 1, 0, 1, 0]\n\nis_alternating = True         # 最初は「交互である（True）」と仮定\nfor i in range(1, len(signals)): # 2番目の要素から直前と比較\n    if signals[i] == signals[i - 1]: # 直前と同じ値なら交互ではない\n        is_alternating = False # フラグをFalseに変更\n        break                 # 崩れた時点でループ終了\n\nprint(is_alternating)"
+  },
+  {
+    "id": 9,
+    "category": "Step 3: リストの構築とデータの入れ替え",
+    "title": "第9問：条件に合う要素だけの新しいリスト作成",
+    "description": "<h4>【条件抽出とリストの追加】</h4><p>元のリストから特定のデータだけを抜き出してまとめたいときは、まず<strong>空のリスト <code>[]</code> を準備</strong>します。<br>ループで元のデータを1つずつ取り出し、<code>if</code> 文で条件（偶数かどうかなど）を満たしているときだけ、<code>append()</code> を使って新しいリストの末尾に追加していきます。</p><h4>【基本操作の確認】</h4><p><code>リスト.append(値)</code> は、既存のリストの末尾に新しいデータを1つ追加する基本的な操作です。空のリストを用意してから少しずつ中身を詰めていく手法は、データ処理の基本パターンです。</p>",
+    "task": "<p>リスト <code>numbers</code> から<strong>「偶数」</strong>だけを取り出し、新しいリスト <code>evens</code> に追加して作成してください。<br>最後に作成した <code>evens</code> を出力してください。</p>",
+    "initial_code": "numbers = [12, 7, 9, 18, 25, 4, 30]\n\n# ここに偶数だけの新しいリストを作るコードを書いてください\n\n",
+    "expected_output": "[12, 18, 4, 30]",
+    "model_answer": "numbers = [12, 7, 9, 18, 25, 4, 30]\n\nevens = []                    # 偶数を入れる空リストを用意\nfor n in numbers:\n    if n % 2 == 0:            # 2で割り切れる（偶数）なら\n        evens.append(n)       # 新しいリストに追加する\n\nprint(evens)"
+  },
+  {
+    "id": 10,
+    "category": "Step 3: リストの構築とデータの入れ替え",
+    "title": "第10問：リストの手動反転（逆順の作成）",
+    "description": "<h4>【後ろから順に取り出す反転アルゴリズム】</h4><p>便利な機能を使わずに手動で逆順リストを作るには、<strong>「元のリストの最後のインデックスから先頭に向かって順番に取り出す」</strong>方法を使います。<br><code>range(len(リスト) - 1, -1, -1)</code> と指定すると、末尾の添字から 0 番目まで 1 つずつ減らしながらインデックスを走査できます。取り出した値を新しい空リストに順次追加していきましょう。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonでは <code>words[::-1]</code> というスライス記法を使うと、リスト全体をステップ数 <code>-1</code>（後ろ向きに1歩ずつ進む）で反転して取り出すことができます。また、リスト自身を反転させる <code>words.reverse()</code> メソッドもあります。</p>",
+    "task": "<p>リスト <code>words</code> の並び順を手動で逆にした新しいリスト <code>reversed_words</code> を作成し、出力してください。<br>※ スライス <code>[::-1]</code> や <code>reverse()</code> メソッドは使わずに、<code>range()</code> を使ったループで後ろから順に作成してください。</p>",
+    "initial_code": "words = [\"apple\", \"banana\", \"cherry\", \"date\"]\n\n# ここに手動で逆順リストを作成するコードを書いてください\n# ※ スライスや reverse() は使わないでください\n\n",
+    "expected_output": "['date', 'cherry', 'banana', 'apple']",
+    "model_answer": "words = [\"apple\", \"banana\", \"cherry\", \"date\"]\n\nreversed_words = []           # 逆順を入れる空リストを用意\nlast_index = len(words) - 1   # 末尾のインデックス番号を計算\n\nfor i in range(last_index, -1, -1): # 末尾から0番目まで-1刻みでループ\n    reversed_words.append(words[i]) # 後ろの要素から順に追加する\n\nprint(reversed_words)"
+  },
+  {
+    "id": 11,
+    "category": "Step 3: リストの構築とデータの入れ替え",
+    "title": "第11問：手動での要素入れ替え（スワップの応用）",
+    "description": "<h4>【2つの場所の値を入れ替える】</h4><p>リスト内の特定の2要素（例えば先頭と末尾）を入れ替えるときは、一方の値を上書きする前に<strong>一時退避用の変数（<code>temp</code> など）</strong>へ避難させるのがアルゴリズムの王道です。<br>先頭の値を変数に退避させた後、先頭に末尾の値を代入し、最後に末尾へ退避させておいた値を代入することで、中身を消さずに安全に交換できます。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonでは「多重代入」という機能があり、<code>cards[0], cards[-1] = cards[-1], cards[0]</code> と書くだけで、退避用変数を用意しなくても1行で値を交換できます。</p>",
+    "task": "<p>リスト <code>cards</code> の<strong>「先頭の要素（インデックス0）」と「末尾の要素（最後のインデックス）」の中身を入れ替え</strong>、入れ替え後のリスト <code>cards</code> 全体を出力してください。<br>※ 末尾の指定は負のインデックス <code>-1</code> または <code>len(cards) - 1</code> を利用できます。</p>",
+    "initial_code": "cards = [\"A\", \"B\", \"C\", \"D\", \"E\"]\n\n# ここに先頭と末尾の要素を入れ替えるコードを書いてください\n\n",
+    "expected_output": "['E', 'B', 'C', 'D', 'A']",
+    "model_answer": "cards = [\"A\", \"B\", \"C\", \"D\", \"E\"]\n\ntemp = cards[0]               # 先頭の値を一時退避\ncards[0] = cards[-1]          # 末尾の値を先頭に代入\ncards[-1] = temp              # 退避しておいた値を末尾に代入\n\nprint(cards)"
+  },
+  {
+    "id": 12,
+    "category": "Step 3: リストの構築とデータの入れ替え",
+    "title": "第12問：手動累積和（そこまでの合計リスト）",
+    "description": "<h4>【累計を記録しながらリストを作る】</h4><p>日々の推移や累積売上を求めるアルゴリズムを<strong>「累積和（るいせきわ）」</strong>と呼びます。<br>累積用の変数（<code>total = 0</code>）と空のリストを用意し、ループで各要素の値を <code>total</code> に足し込みながら、<strong>足し終えた直後の <code>total</code> の値をその都度新しいリストへ <code>append()</code></strong> していきます。</p><h4>【考え方のポイント】</h4><p>各ステップで「これまでの合計」を保持しながら進む考え方は、グラフを描いたり、特定の期間だけの合計をすばやく計算したりする際にも広く応用されます。</p>",
+    "task": "<p>リスト <code>sales</code> に4日間の売上数が記録されています。<br>1日目からその日までの「累計売上数」を記録したリスト <code>cum_sales</code> を作成し、出力してください。<br>（例: <code>[10, 25, 45, ...]</code> のように各日までの合計が入ったリストになります）</p>",
+    "initial_code": "sales = [10, 15, 20, 30]\n\n# ここに累積売上のリストを作成するコードを書いてください\n\n",
+    "expected_output": "[10, 25, 45, 75]",
+    "model_answer": "sales = [10, 15, 20, 30]\n\ncum_sales = []                # 累計値を格納する空リストを用意\ntotal = 0                     # そこまでの合計を管理する変数\n\nfor s in sales:\n    total += s                # 当日の売上を累計に加算\n    cum_sales.append(total)   # その時点の累計をリストに追加\n\nprint(cum_sales)"
+  },
+  {
+    "id": 13,
+    "category": "Step 4: 2次元リストと辞書の基礎活用",
+    "title": "第13問：2次元リストの行ごとの合計",
+    "description": "<h4>【行ごとの集計と2重ループ】</h4><p>表形式（2次元リスト）のデータを扱うときは、外側のループで行（1人分のデータ）を1つずつ取り出し、内側のループでその行に含まれる各列の値を合計していきます。<br>大切なのは、<strong>「行が変わるたびに合計用の変数を 0 にリセットする」</strong>ことです。各行の計算が終わったら、その合計値を新しいリストへ追加していきましょう。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonではリストの合計を求める <code>sum()</code> 関数があるため、各行に対して <code>sum(row)</code> を使うことで、内側のループを書かずに合計を計算することもできます。</p>",
+    "task": "<p>3人の生徒の「国語・数学・英語」の点数が2次元リスト <code>scores</code> に記録されています。<br>生徒ごとに3教科の合計点を手動で計算し、3人分の合計点をまとめたリスト <code>totals</code> を作成して出力してください。<br>※ <code>sum()</code> などの便利関数は使わずに、2重ループで計算してください。</p>",
+    "initial_code": "scores = [\n    [80, 70, 90],  # 生徒A\n    [60, 85, 75],  # 生徒B\n    [90, 95, 80]   # 生徒C\n]\n\n# ここに各生徒の合計点を計算するコードを書いてください\n\n",
+    "expected_output": "[240, 220, 265]",
+    "model_answer": "scores = [\n    [80, 70, 90],\n    [60, 85, 75],\n    [90, 95, 80]\n]\n\ntotals = []                   # 全員の合計点をまとめるリスト\nfor row in scores:            # 1行（生徒1人分）ずつ取り出す\n    subtotal = 0              # 生徒ごとに合計を0でリセット\n    for score in row:         # 各教科の点数を1つずつ足す\n        subtotal += score     # 手動で加算\n    totals.append(subtotal)   # 計算した合計をリストに追加\n\nprint(totals)"
+  },
+  {
+    "id": 14,
+    "category": "Step 4: 2次元リストと辞書の基礎活用",
+    "title": "第14問：2次元リストの列ごとの集計（特定教科の合計）",
+    "description": "<h4>【列を固定して縦方向に足し合わせる】</h4><p>表の特定教科（列）だけを集計したいときは、行方向にループを回します。<br>各行のインデックスを <code>i</code>、調べたい列のインデックスを固定（例えば2列目なら <code>col = 1</code>）とし、<code>scores[i][col]</code> のようにアクセスして合計用変数へ足し込んでいきます。</p><h4>【考え方のポイント】</h4><p>2次元リストでは <code>リスト[行の番号][列の番号]</code> で特定のマスを指定できます。横方向（行）を調べるときは右側の添字が変化し、縦方向（列）を調べるときは左側の添字をループで変化させるのが基本ルールです。</p>",
+    "task": "<p>2次元リスト <code>scores</code> は生徒3人の「国語（0列目）、数学（1列目）、英語（2列目）」の点数です。<br>全員の<strong>「数学（インデックス1）」の合計点</strong>を手動で計算し、その値を出力してください。<br>※ <code>sum()</code> などの便利関数は使わないでください。</p>",
+    "initial_code": "scores = [\n    [80, 70, 90],  # 生徒A\n    [60, 85, 75],  # 生徒B\n    [90, 95, 80]   # 生徒C\n]\n\n# ここに全員の数学の合計点を計算するコードを書いてください\n\n",
+    "expected_output": "250",
+    "model_answer": "scores = [\n    [80, 70, 90],\n    [60, 85, 75],\n    [90, 95, 80]\n]\n\nmath_total = 0                # 数学の合計を入れる変数\nfor row in scores:            # 各生徒の行を取り出す\n    math_total += row[1]      # インデックス1（数学）の値を足す\n\nprint(math_total)"
+  },
+  {
+    "id": 15,
+    "category": "Step 4: 2次元リストと辞書の基礎活用",
+    "title": "第15問：辞書を使った手動度数集計（カウント）",
+    "description": "<h4>【辞書による出現回数の集計】</h4><p>リスト内のデータごとの個数を数えるには、辞書を空（<code>{}</code>）で用意します。<br>データを1つずつ取り出し、<strong>「すでに辞書のキーに存在するか」を <code>in</code> 演算子で判定</strong>します。すでに存在していれば値を <code>+ 1</code> し、まだ存在していなければ初めて現れたデータなので初期値 <code>1</code> を登録します。</p><h4>【Pythonの便利機能（参考）】</h4><p>辞書には <code>counts.get(キー, 初期値)</code> という便利なメソッドがあります。例えば <code>counts.get(f, 0)</code> と書くと、果物 <code>f</code> がすでに辞書にあればその現在の個数を返し、まだ登録されていなければ <code>0</code> を返します。これを利用して <code>counts[f] = counts.get(f, 0) + 1</code> と書けば、<code>if</code> 文で存在確認をしなくても1行で個数を増やせます。</p>",
+    "task": "<p>リスト <code>fruits</code> に果物の名前が記録されています。<br>空の辞書 <code>counts</code> を用意し、それぞれの果物が何個ずつあるかを集計して、辞書 <code>counts</code> を出力してください。</p>",
+    "initial_code": "fruits = [\"apple\", \"banana\", \"apple\", \"orange\", \"banana\", \"apple\"]\n\n# ここに辞書で個数を集計するコードを書いてください\n\n",
+    "expected_output": "{'apple': 3, 'banana': 2, 'orange': 1}",
+    "model_answer": "fruits = [\"apple\", \"banana\", \"apple\", \"orange\", \"banana\", \"apple\"]\n\ncounts = {}                   # 集計用の空辞書を用意\nfor f in fruits:\n    if f in counts:           # すでに登録されている果物なら\n        counts[f] += 1        # カウントを1増やす\n    else:                     # 初めて登場した果物なら\n        counts[f] = 1         # 値を1として新しく登録\n\nprint(counts)"
+  },
+  {
+    "id": 16,
+    "category": "Step 4: 2次元リストと辞書の基礎活用",
+    "title": "第16問：辞書の最大値を持つキーの探索",
+    "description": "<h4>【辞書の中から最大得票・最多品目を特定する】</h4><p>辞書の中で最も値（個数など）が大きい項目のキーを探すには、<code>items()</code> を使って「キー」と「値」のペアを取り出して走査します。<br>最大値の初期値として <code>-1</code> などを、対応する名前の初期値として <code>\"\"</code>（空文字）を用意しておき、より大きい値を見つけるたびに<strong>「最大値」と「そのときのキー」の両方を同時に更新</strong>していきます。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonでは <code>max(votes, key=votes.get)</code> と書くことで、値が最大となるキーを直接取り出す手法がよく知られています。</p>",
+    "task": "<p>辞書 <code>votes</code> に投票結果（候補者名と得票数）が記録されています。<br><code>max()</code> 関数を使わずに、最も多く票を獲得した<strong>「候補者名（キー）」</strong>を求めて出力してください。<br>※ 最多得票者は1名のみとします。</p>",
+    "initial_code": "votes = {\"Tanaka\": 14, \"Sato\": 23, \"Suzuki\": 19}\n\n# ここに最多得票者の名前を探すコードを書いてください\n# ※ max() 関数は使わないでください\n\n",
+    "expected_output": "Sato",
+    "model_answer": "votes = {\"Tanaka\": 14, \"Sato\": 23, \"Suzuki\": 19}\n\nmax_votes = -1                # 暫定の最大票数を設定\ntop_person = \"\"               # 最多得票者の名前を入れる変数\n\nfor name, count in votes.items(): # 名前と得票数をペアで取り出す\n    if count > max_votes:     # より多い得票数が見つかったら\n        max_votes = count     # 最大票数を更新\n        top_person = name     # その人物の名前を記録\n\nprint(top_person)"
+  },
+  {
+    "id": 17,
+    "category": "Step 5: 総合確認テスト",
+    "title": "第17問：合格者の平均点（条件付き平均）",
+    "description": "",
+    "task": "<p>リスト <code>scores</code> に生徒たちのテスト結果が記録されています。<br><strong>「60点以上（合格）」の人のみを対象</strong>にして、合格者の合計点と合格者の人数を手動で数え、合格者の平均点（整数の商 <code>//</code>）を求めて出力してください。<br>※ <code>sum()</code> や <code>len()</code> で全体を割るなどの便利関数に頼らず、ループの中で合格者の合計と人数をそれぞれ集計してください。</p>",
+    "initial_code": "scores = [45, 78, 62, 55, 90, 84, 58]\n\n# ここに合格者だけの平均点を計算するコードを書いてください\n\n",
+    "expected_output": "78",
+    "model_answer": "scores = [45, 78, 62, 55, 90, 84, 58]\n\npass_total = 0                # 合格者の点数合計\npass_count = 0                # 合格者の人数\n\nfor s in scores:\n    if s >= 60:               # 60点以上（合格）の人のみ集計\n        pass_total += s       # 点数を加算\n        pass_count += 1       # 人数を加算\n\navg = pass_total // pass_count # 整数の商で平均を算出\nprint(avg)"
+  },
+  {
+    "id": 18,
+    "category": "Step 5: 総合確認テスト",
+    "title": "第18問：最大値と最小値の差（レンジの計算）",
+    "description": "",
+    "task": "<p>リスト <code>temps</code> にある日の気温推移が記録されています。<br><code>max()</code> 関数や <code>min()</code> 関数を使わずに、ループ処理で<strong>「最高気温」と「最低気温」の両方を手動で求め、その差（最高気温 - 最低気温）</strong>を出力してください。</p>",
+    "initial_code": "temps = [15, 21, 13, 26, 18, 12, 22]\n\n# ここに最高気温と最低気温の差を計算するコードを書いてください\n# ※ max() や min() は使わないでください\n\n",
+    "expected_output": "14",
+    "model_answer": "temps = [15, 21, 13, 26, 18, 12, 22]\n\nmax_t = temps[0]              # 暫定の最大値を先頭データで初期化\nmin_t = temps[0]              # 暫定の最小値を先頭データで初期化\n\nfor t in temps:\n    if t > max_t:             # より大きい値なら最大値を更新\n        max_t = t\n    if t < min_t:             # より小さい値なら最小値を更新\n        min_t = t\n\ndiff = max_t - min_t          # 最大値と最小値の差を計算\nprint(diff)"
+  },
+  {
+    "id": 19,
+    "category": "Step 5: 総合確認テスト",
+    "title": "第19問：手動線形探索関数の作成",
+    "description": "",
+    "task": "<p>リスト <code>data</code> と探したい値 <code>target</code> を引数として受け取る関数 <code>linear_search(data, target)</code> を作成してください。<br>この関数は、リスト内に <code>target</code> が存在すればその<strong>インデックス番号</strong>を返し、存在しなければ <code>-1</code> を返します。<br>関数を完成させ、最後に用意された呼び出しコードで結果を出力してください。<br>※ <code>.index()</code> メソッドは使わずにループで探索してください。</p>",
+    "initial_code": "def linear_search(data, target):\n    # ここに関数の処理を書いてください\n    pass\n\n\nitems = [10, 20, 30, 40, 50]\nprint(linear_search(items, 30))\nprint(linear_search(items, 99))\n",
+    "expected_output": "2\n-1",
+    "model_answer": "def linear_search(data, target):\n    for i in range(len(data)): # インデックスで先頭から順に調べる\n        if data[i] == target:  # 目的の値と一致したら\n            return i           # そのインデックスを返して終了\n    return -1                  # 最後まで見つからなければ -1 を返す\n\nitems = [10, 20, 30, 40, 50]\nprint(linear_search(items, 30))\nprint(linear_search(items, 99))"
+  },
+  {
+    "id": 20,
+    "category": "Step 5: 総合確認テスト",
+    "title": "第20問：連続する同じ値のペア検出",
+    "description": "",
+    "task": "<p>リスト <code>nums</code> の中に<strong>「まったく同じ数値が2回連続で並んでいる場所」</strong>があるかどうかを判定してください。<br>連続するペアが1箇所でもあれば <code>True</code>、1箇所もなければ <code>False</code> を出力してください。<br>※ インデックス参照を利用して、隣り合う要素同士を比較してください。</p>",
+    "initial_code": "nums = [3, 7, 2, 2, 5, 8]\n\n# ここに同じ値が連続しているか判定するコードを書いてください\n\n",
+    "expected_output": "True",
+    "model_answer": "nums = [3, 7, 2, 2, 5, 8]\n\nhas_duplicate = False         # 最初は「連続なし（False）」と仮定\n\nfor i in range(1, len(nums)): # 2番目の要素から直前の値と比較\n    if nums[i] == nums[i - 1]: # 直前の値と同一であれば\n        has_duplicate = True  # フラグをTrueに更新\n        break                 # ペアが見つかったので探索終了\n\nprint(has_duplicate)"
+  }
+]

@@ -1,0 +1,312 @@
+[
+  {
+    "id": 1,
+    "category": "Step 1: Pythonの第一歩",
+    "title": "第1問：文字を出力してみよう（print関数）",
+    "description": "<h4>【基本構文】</h4><p>画面に文字や数値を表示するには <code>print()</code> 関数を使用します。<br>文字（文字列）を出力する場合は、文字の前後をシングルクォート <code>'...'</code> またはダブルクォート <code>\"...\"</code> で囲みます。</p><h4>【使用例】</h4><pre><code># 文字列の出力\nprint(\"こんにちは\")\n\n# 数値の出力（数値はクォート不要）\nprint(100)</code></pre><h4>【その他の文法：コメント】</h4><p><code>#</code>（シャープ）から始まる行や文字は<strong>「コメント」</strong>と呼ばれ、プログラム実行時には完全に無視されます。コードの説明やメモを残すときに使います。</p><pre><code># ここは実行されません\nprint(\"表示されます\")  # 行末に書くこともできます</code></pre><h4>【注意点】</h4><p>Pythonはアルファベットの大文字・小文字を厳密に区別します。<code>Print()</code> や <code>PRINT()</code> ではエラーになるため、すべて小文字で記述してください。</p>",
+    "task": "<p><code>print()</code> を使い、画面に <strong>Hello, World!</strong> と出力させてください。</p>",
+    "initial_code": "# ここにコードを書いて実行してください\nprint()",
+    "expected_output": "Hello, World!",
+    "model_answer": "print(\"Hello, World!\")"
+  },
+  {
+    "id": 2,
+    "category": "Step 1: Pythonの第一歩",
+    "title": "第2問：数値と計算（四則演算）",
+    "description": "<h4>【基本構文】</h4><p>Pythonでは算術演算子を使って計算を行えます。</p><ul><li>足し算：<code>+</code></li><li>引き算：<code>-</code></li><li>掛け算：<code>*</code>（アスタリスク）</li><li>割り算：<code>/</code>（スラッシュ：結果は小数になります）</li><li>割り算の整数部（商）：<code>//</code></li><li>余り（剰余）：<code>%</code></li></ul><h4>【使用例】</h4><pre><code>print(10 + 5)   # 15\nprint(10 * 3)   # 30\nprint(10 / 2)   # 5.0\nprint(17 // 5)  # 3 （17割る5の商）\nprint(17 % 5)   # 2 （17割る5の余り）\nprint((2 + 3) * 4) # かっこを使って計算順序を指定可能 (20)</code></pre>",
+    "task": "<p>底辺が <code>8</code>、高さが <code>5</code> の三角形の面積（底辺 × 高さ ÷ 2）を計算し、その結果を出力してください。</p>",
+    "initial_code": "# 三角形の面積を計算してprintで出力してください\n",
+    "expected_output": "20.0",
+    "model_answer": "print(8 * 5 / 2)"
+  },
+  {
+    "id": 3,
+    "category": "Step 1: Pythonの第一歩",
+    "title": "第3問：データの型（数値と文字列の違い）",
+    "description": "<h4>【データの種類（型：Type）】</h4><p>Pythonで扱うデータには、それぞれ「型（タイプ）」が決まっています。</p><ul><li><strong>int（整数型）</strong>：<code>10</code> や <code>-5</code> などの整数</li><li><strong>float（浮動小数点数型）</strong>：<code>3.14</code> や <code>0.5</code> などの小数</li><li><strong>str（文字列型）</strong>：<code>\"こんにちは\"</code> や <code>\"100\"</code> などのクォートで囲まれた文字</li><li><strong>bool（真偽値型）</strong>：<code>True</code>（正しい）または <code>False</code>（間違い）の2択を表す値</li></ul><h4>【数値の数字と、文字列の数字の違い】</h4><p>同じ数字に見えても、クォートで囲むかどうかで動きが大きく変わります。</p><pre><code>print(10 + 20)      # 30 （数値の足し算）\nprint(\"10\" + \"20\")  # 1020 （文字として連結される）</code></pre><h4>【型の調べ方：type()関数】</h4><p><code>type(調べたいデータ)</code> を使うと、そのデータが何の型かを調べることができます。</p><pre><code>print(type(100))    # &lt;class 'int'&gt;\nprint(type(\"100\"))  # &lt;class 'str'&gt;</code></pre>",
+    "task": "<p>変数 <code>price = \"100\"</code>（文字列）と変数 <code>tax = 10</code>（整数）が用意されています。<br><code>type()</code> 関数と <code>print()</code> を使って、まずは <code>price</code> の型を出力し、次の行に <code>tax</code> の型を出力してください。</p>",
+    "initial_code": "price = \"100\"\ntax = 10\n# price と tax の型をそれぞれ出力してください\n",
+    "expected_output": "<class 'str'>\n<class 'int'>",
+    "model_answer": "price = \"100\"\ntax = 10\nprint(type(price))\nprint(type(tax))"
+  },
+  {
+    "id": 4,
+    "category": "Step 1: Pythonの第一歩",
+    "title": "第4問：変数の更新と再代入",
+    "description": "<h4>【基本構文】</h4><p>データを一時的に記憶しておく箱を<strong>「変数」</strong>と呼びます。<br><code>変数名 = 値</code> と書くと、右辺の値が左辺の変数に代入されます。<br>また、すでに値が入っている変数に数値を足し込むときは <code>変数 += 加算値</code>（累積代入演算子）、または <code>変数 = 変数 + 加算値</code> を使います。</p><h4>【使用例】</h4><pre><code>score = 10\nprint(score)  # 10\n\n# スコアに5を加算して更新\nscore += 5          # または score = score + 5\nprint(score)  # 15</code></pre>",
+    "task": "<p>変数 <code>score = 0</code> から始め、1回目に <code>15</code> 点、2回目に <code>25</code> 点を加算し、最終的なスコアを出力してください。</p>",
+    "initial_code": "score = 0\n# scoreに加算処理を行ってください\n\nprint(score)",
+    "expected_output": "40",
+    "model_answer": "score = 0\nscore += 15\nscore += 25\nprint(score)"
+  },
+  {
+    "id": 5,
+    "category": "Step 2: 条件によって分岐する",
+    "title": "第5問：もし〜なら（if / else）",
+    "description": "<h4>【基本構文】</h4><p>「もし条件が成り立つならA、成り立たないならBを実行する」という分岐には <code>if ... else</code> を使います。</p><pre><code>if 条件式:\n    条件を満たす（True）ときの処理\nelse:\n    条件を満たさない（False）ときの処理</code></pre><h4>【比較演算子と真偽値の省略】</h4><ul><li><code>a &gt;= b</code> : a は b 以上</li><li><code>a == b</code> : a と b は等しい</li><li><code>a != b</code> : a と b は等しくない</li></ul><p>※真偽値（True/False）が入った変数 <code>flag</code> を判定する場合、<code>if flag == True:</code> と書かずに <strong><code>if flag:</code></strong> と省略して書くのがPythonの標準的な書き方です。</p><h4>【注意点（初心者が最もつまずきやすい点）】</h4><ol><li><strong>行末のコロン <code>:</code></strong> : <code>if 条件式:</code> や <code>else:</code> の末尾には、必ず半角コロン <code>:</code> を付けます。</li><li><strong>インデント（字下げ）</strong> : 条件ブロック内の処理は、必ず<strong>半角スペース4つで字下げ</strong>します。</li></ol>",
+    "task": "<p>変数 <code>score = 75</code> が <code>60</code> 以上の場合は <code>合格</code>、<code>60</code> 未満の場合は <code>不合格</code> と出力してください。</p>",
+    "initial_code": "score = 75\n# ここにif-else文を書いてください\n",
+    "expected_output": "合格",
+    "model_answer": "score = 75\nif score >= 60:\n    print(\"合格\")\nelse:\n    print(\"不合格\")"
+  },
+  {
+    "id": 6,
+    "category": "Step 2: 条件によって分岐する",
+    "title": "第6問：複数の条件分岐（elif）",
+    "description": "<h4>【基本構文】</h4><p>3つ以上の選択肢がある場合、<code>elif</code>（else if の略）を使います。条件は上から順に判定され、最初に一致したブロックだけが実行されます。<code>elif 条件式:</code> の行末にもコロン <code>:</code> が必須です。</p><pre><code>if 条件A:\n    条件Aを満たすときの処理\nelif 条件B:\n    条件Aは満たさず、条件Bを満たすときの処理\nelse:\n    どの条件も満たさないときの処理</code></pre><h4>【使用例】</h4><pre><code>temperature = 28\nif temperature &gt;= 30:\n    print(\"真夏日\")\nelif temperature &gt;= 25:\n    print(\"夏日\")\nelse:\n    print(\"過ごしやすい日\")</code></pre>",
+    "task": "<p>変数 <code>age = 15</code> に対し、以下のように判定して料金区分を出力してください。</p><ul><li>12歳以下：<code>子供料金</code></li><li>13歳以上64歳以下：<code>大人料金</code></li><li>65歳以上：<code>シニア料金</code></li></ul>",
+    "initial_code": "age = 15\n# elifを使って条件を分岐してください\n",
+    "expected_output": "大人料金",
+    "model_answer": "age = 15\nif age <= 12:\n    print(\"子供料金\")\nelif age <= 64:\n    print(\"大人料金\")\nelse:\n    print(\"シニア料金\")"
+  },
+  {
+    "id": 7,
+    "category": "Step 2: 条件によって分岐する",
+    "title": "第7問：偶数と奇数の判定（剰余算 %）",
+    "description": "<h4>【考え方と構文】</h4><p>プログラミングで頻出のテクニックが<strong>「2で割った余り」による偶数・奇数の判別</strong>です。<br>余りを求める算術演算子 <code>%</code> を使います。</p><ul><li><code>n % 2 == 0</code> → 2で割り切れるため<strong>偶数</strong></li><li><code>n % 2 != 0</code>（または <code>n % 2 == 1</code>）→ 2で割ると1余るため<strong>奇数</strong></li></ul><h4>【使用例】</h4><pre><code>n = 7\nif n % 2 == 0:\n    print(\"偶数\")\nelse:\n    print(\"奇数\")  # 7割る2の余りは1なのでこちらが実行される</code></pre>",
+    "task": "<p>変数 <code>num = 42</code> が偶数の場合は <code>偶数</code>、奇数の場合は <code>奇数</code> と出力してください。</p>",
+    "initial_code": "num = 42\n# % 演算子を使って判定してください\n",
+    "expected_output": "偶数",
+    "model_answer": "num = 42\nif num % 2 == 0:\n    print(\"偶数\")\nelse:\n    print(\"奇数\")"
+  },
+  {
+    "id": 8,
+    "category": "Step 3: まとまったデータと繰り返し",
+    "title": "第8問：決まった回数の繰り返し（forとrange）",
+    "description": "<h4>【基本構文】</h4><p>同じ処理を指定回数繰り返すときは <code>for 変数 in range(...):</code> を使います（末尾にコロン <code>:</code> が必要です）。</p><h4>【range()の2つの使い方】</h4><ol><li><strong>開始値を省略するケース：<code>range(終了値)</code></strong><br>0から始まり、終了値の1つ手前までカウントします。<pre><code>for i in range(3):\n    print(i)  # 0, 1, 2 が出力される（計3回）</code></pre></li><li><strong>開始値を指定するケース：<code>range(開始値, 終了値)</code></strong><br>指定した開始値から、終了値の1つ手前までカウントします。<pre><code>for i in range(1, 4):\n    print(i)  # 1, 2, 3 が出力される（終了値4は含まれない）</code></pre></li></ol><h4>【注意点】</h4><p>終了値に指定した数値そのものは<strong>含まれません</strong>。たとえば「1から5まで」繰り返したい場合は、終了値を1つ増やして <code>range(1, 6)</code> と書く必要があります。</p>",
+    "task": "<p><code>for</code> 文と <code>range()</code> を使って、<code>1</code> から <code>5</code> までの数字を1行ずつ改行して順に出力してください。</p>",
+    "initial_code": "# for文を書いて1から5まで出力してください\n",
+    "expected_output": "1\n2\n3\n4\n5",
+    "model_answer": "for i in range(1, 6):\n    print(i)"
+  },
+  {
+    "id": 9,
+    "category": "Step 3: まとまったデータと繰り返し",
+    "title": "第9問：複数のデータを扱う（リストの基本）",
+    "description": "<h4>【基本構文】</h4><p>複数のデータをひとまとめにして順序をつけて管理する入れ物を<strong>「リスト」</strong>と呼びます。ブラケット <code>[...]</code> の中にカンマ <code>,</code> 区切りで値を並べます。</p><p>リスト内の要素を先頭から順に1つずつ取り出すには、<code>for 変数 in リスト名:</code> を使います。</p><h4>【使用例】</h4><pre><code>fruits = [\"りんご\", \"みかん\", \"バナナ\"]\nfor item in fruits:\n    print(item)\n# りんご、みかん、バナナ が順に出力される</code></pre>",
+    "task": "<p>買い物リスト <code>items = [\"ノート\", \"ペン\", \"消しゴム\"]</code> の全要素を、for文を使って1行ずつ順に出力してください。</p>",
+    "initial_code": "items = [\"ノート\", \"ペン\", \"消しゴム\"]\n# for文でリストの中身を出力してください\n",
+    "expected_output": "ノート\nペン\n消しゴム",
+    "model_answer": "items = [\"ノート\", \"ペン\", \"消しゴム\"]\nfor item in items:\n    print(item)"
+  },
+  {
+    "id": 10,
+    "category": "Step 3: まとまったデータと繰り返し",
+    "title": "第10問：合計値を計算しよう（累積処理）",
+    "description": "<h4>【基本パターン：累積アルゴリズム】</h4><p>複数の数値の総和を求める処理は、アルゴリズムの最も基本的な定石です。</p><ol><li>ループの前に、合計値を入れておく変数を <code>0</code> で用意する（初期化）。</li><li>ループ内で、各数値をその変数に <code>+=</code> で足し込んでいく。</li><li>ループが終了した後、最終結果を <code>print()</code> で出力する。</li></ol><h4>【注意点】</h4><p><code>total = 0</code> をループの中に書いてしまうと、回るたびにリセットされてしまいます。必ず <code>for</code> の手前で初期化してください。</p>",
+    "task": "<p>1から10までの整数の合計値（1 + 2 + 3 + ... + 10）をfor文を使って計算し、結果（<code>55</code>）を出力してください。</p>",
+    "initial_code": "total = 0\n# 1から10までを加算するfor文を書いてください\n\nprint(total)",
+    "expected_output": "55",
+    "model_answer": "total = 0\nfor i in range(1, 11):\n    total += i\nprint(total)"
+  },
+  {
+    "id": 11,
+    "category": "Step 4: 処理をまとめる（関数）",
+    "title": "第11問：オリジナル関数を作ろう（関数の定義と呼び出し）",
+    "description": "<h4>【基本構文】</h4><p>一連の処理をまとめて名前を付け、いつでも再利用できるようにしたものを<strong>「関数」</strong>と呼びます。<br><code>def 関数名():</code> で作成（定義）し、<code>関数名()</code> で動かします（呼び出し）。<code>def</code> の行末にもコロン <code>:</code> を忘れずに付けます。</p><pre><code># 関数の定義\ndef 関数名():\n    実行したい処理（インデント（半角スペース4つ）する）\n\n# 関数の呼び出し\n関数名()</code></pre><h4>【使用例】</h4><pre><code>def show_banner():\n    print(\"===============\")\n    print(\"  START GAME   \")\n    print(\"===============\")\n\nshow_banner() # 何度でも呼び出せる</code></pre>",
+    "task": "<p>呼び出すと <code>こんにちは！</code> と出力する関数 <code>say_hello()</code> を作成し、その関数を呼び出してください。</p>",
+    "initial_code": "# 関数 say_hello を定義し、呼び出してください\n",
+    "expected_output": "こんにちは！",
+    "model_answer": "def say_hello():\n    print(\"こんにちは！\")\n\nsay_hello()"
+  },
+  {
+    "id": 12,
+    "category": "Step 4: 処理をまとめる（関数）",
+    "title": "第12問：データを受け取る（引数つき関数）",
+    "description": "<h4>【基本構文】</h4><p>関数に外から値を渡したいときは、カッコの中に<strong>「引数（ひきすう）」</strong>を指定します。引数は関数の中だけで使える変数として機能します。</p><pre><code>def 関数名(引数名):\n    引数を使った処理\n\n関数名(渡したい値)</code></pre><h4>【その他の文法：文字列の結合とf文字列】</h4><p>文字列や、文字列が入った変数をつなぎ合わせる方法は主に2つあります。</p><ol><li><strong><code>+</code> 演算子による結合</strong><br>文字列同士を <code>+</code> で足し算のように連結できます。<pre><code>name = \"田中\"\nprint(name + \"さん、こんにちは！\")</code></pre></li><li><strong>f-strings（f文字列）</strong><br>文字列の前に <code>f</code> を付け、<code>{変数名}</code> と埋め込むとスッキリ記述できます。<pre><code>name = \"田中\"\nprint(f\"{name}さん、こんにちは！\")</code></pre></li></ol>",
+    "task": "<p>名前の文字列を受け取り、<code>〇〇さん、ようこそ！</code> と出力する関数 <code>greet(name)</code> を作成し、引数に <code>\"佐藤\"</code> を渡して呼び出してください。</p>",
+    "initial_code": "# 関数 greet(name) を定義し、greet(\"佐藤\") を呼び出してください\n",
+    "expected_output": "佐藤さん、ようこそ！",
+    "model_answer": "def greet(name):\n    print(name + \"さん、ようこそ！\")\n\ngreet(\"佐藤\")"
+  },
+  {
+    "id": 13,
+    "category": "Step 4: 処理をまとめる（関数）",
+    "title": "第13問：計算結果を返す（戻り値 return）",
+    "description": "<h4>【戻り値 return とは】</h4><p>関数の中で計算した結果を「呼び出し元」へ返却したいときに <code>return</code> を使います。<br>返された結果を変数に代入して受け取ることで、その後の別の計算や処理に利用することができます。</p><h4>【基本構文】</h4><pre><code>def 関数名(引数1, 引数2):\n    計算処理\n    return 返したい値\n\n変数 = 関数名(値1, 値2) # 戻り値を変数で受け取る</code></pre><h4>【使用例】</h4><pre><code>def add(a, b):\n    return a + b\n\nans = add(3, 4)  # ans に計算結果の 7 が入る\nprint(ans * 2)   # 受け取った値を使ってさらに計算可能 (14)</code></pre>",
+    "task": "<p>2つの引数 <code>a</code> と <code>b</code> を受け取り、それらを掛け算した結果を <code>return</code> する関数 <code>multiply(a, b)</code> を作成してください。<br>その後、<code>multiply(6, 7)</code> の結果を変数 <code>result</code> に受け取り、<code>print(result)</code> で出力してください。</p>",
+    "initial_code": "# multiply(a, b) を作成し、6 と 7 を渡して結果を出力してください\n",
+    "expected_output": "42",
+    "model_answer": "def multiply(a, b):\n    return a * b\n\nresult = multiply(6, 7)\nprint(result)"
+  },
+  {
+    "id": 14,
+    "category": "Step 5: 初歩のアルゴリズムに挑戦",
+    "title": "第14問：条件付き集計関数（カウンタ）",
+    "description": "<h4>【関数の組み合わせ技】</h4><p>関数の中にループ（<code>for</code>）と条件分岐（<code>if</code>）を同居させることで、実用的な処理を部品化できます。</p><h4>【カウンタのパターン】</h4><pre><code>count = 0  # 条件を満たした回数を記録する変数\nfor x in リスト:\n    if 条件式:\n        count += 1  # 一致したときだけ1増やす\nreturn count</code></pre>",
+    "task": "<p>数値のリストを受け取り、その中の<strong>「0より大きい正の数」の個数</strong>をカウントして返す関数 <code>count_positives(numbers)</code> を作成してください。<br>その後、与えられたリスト <code>data = [3, -2, 0, 7, -5, 8]</code> を渡して結果を <code>print()</code> してください。</p>",
+    "initial_code": "def count_positives(numbers):\n    # pass は「何もしない」ことを表すPythonのキーワードです。\n    # 関数の中に何も処理を書かないと文法エラーになるため一時的に置いてあります。\n    # 実際の処理を記述する際は、この pass を削除してコードを書いてください。\n    pass\n\ndata = [3, -2, 0, 7, -5, 8]\nans = count_positives(data)\nprint(ans)",
+    "expected_output": "3",
+    "model_answer": "def count_positives(numbers):\n    count = 0\n    for num in numbers:\n        if num > 0:\n            count += 1\n    return count\n\ndata = [3, -2, 0, 7, -5, 8]\nans = count_positives(data)\nprint(ans)"
+  },
+  {
+    "id": 15,
+    "category": "Step 5: 初歩のアルゴリズムに挑戦",
+    "title": "第15問：最大値を見つける関数（線形探索）",
+    "description": "<h4>【その他の文法：リストの要素の取り出し方（インデックス）】</h4><p>リストの特定の場所にある値を取り出すには、<code>リスト[番号]</code> と書きます。<br>番号（インデックス）は<strong>0から始まる</strong>ため、先頭の要素は <code>numbers[0]</code> で取得できます。</p><h4>【最大値探索のロジック】</h4><p>Pythonには標準で <code>max()</code> 関数がありますが、その裏側の仕組みを自分で組み立ててみましょう。</p><ol><li>リストの先頭の値（<code>numbers[0]</code>）を、現時点での暫定最大値として変数 <code>max_val</code> に入れる。</li><li>リストの要素をループで1つずつ確認する。</li><li>もし「暫定最大値」より大きい数字が見つかったら、<code>max_val</code> をその数字で上書き更新する。</li><li>すべての確認が終わったときの <code>max_val</code> が全体の最大値になる。</li></ol>",
+    "task": "<p>リスト内の最大値をループを使って探して返す関数 <code>find_max(numbers)</code> を作成してください。<br>（※組み込みの <code>max()</code> は使わずに実装してください）<br>与えられた <code>scores = [45, 82, 19, 93, 67]</code> を渡して結果を出力してください。</p>",
+    "initial_code": "def find_max(numbers):\n    # passを削除して、ループで最大値を探す処理を記述してください\n    pass\n\nscores = [45, 82, 19, 93, 67]\nprint(find_max(scores))",
+    "expected_output": "93",
+    "model_answer": "def find_max(numbers):\n    max_val = numbers[0]\n    for num in numbers:\n        if num > max_val:\n            max_val = num\n    return max_val\n\nscores = [45, 82, 19, 93, 67]\nprint(find_max(scores))"
+  },
+  {
+    "id": 16,
+    "category": "Step 5: 初歩のアルゴリズムに挑戦",
+    "title": "第16問：FizzBuzz関数（総合問題）",
+    "description": "<h4>【その他の文法：数値から文字列への変換 str()】</h4><p>数値型（<code>int</code>）のデータを文字列型（<code>str</code>）に変換するには <code>str()</code> 関数を使います。<br>たとえば <code>str(7)</code> とすると、数値の <code>7</code> が文字の <code>\"7\"</code> に変換されます。</p><h4>【アルゴリズムの登竜門：FizzBuzz】</h4><p>プログラマの基礎確認によく使われる有名な問題です。</p><ul><li>15の倍数（3でも5でも割り切れる）：<code>\"FizzBuzz\"</code></li><li>3の倍数：<code>\"Fizz\"</code></li><li>5の倍数：<code>\"Buzz\"</code></li><li>どれでもない：その数字をそのまま文字列にして返す（<code>str(n)</code>）</li></ul><h4>【判定順序の罠】</h4><p><code>if</code> 文は上から順に評価されるため、先に <code>n % 3 == 0</code> を書いてしまうと、<code>15</code> が来たときに「3の倍数」として処理されてしまい、二度と「15の倍数」ブロックに到達しません。<br><strong>「より厳しい条件（15の倍数）」を一番最初に判定する</strong>のが鉄則です。</p>",
+    "task": "<p>整数 <code>n</code> を受け取り、上記のルールに従った文字列を <code>return</code> する関数 <code>fizzbuzz(n)</code> を作成してください。<br>その後、1から15までの数字をfor文で回して関数に渡し、結果を1行ずつ出力してください。</p>",
+    "initial_code": "def fizzbuzz(n):\n    # passを削除して、条件分岐を記述してください\n    pass\n\nfor i in range(1, 16):\n    print(fizzbuzz(i))",
+    "expected_output": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz",
+    "model_answer": "def fizzbuzz(n):\n    if n % 15 == 0:\n        return \"FizzBuzz\"\n    elif n % 3 == 0:\n        return \"Fizz\"\n    elif n % 5 == 0:\n        return \"Buzz\"\n    else:\n        return str(n)\n\nfor i in range(1, 16):\n    print(fizzbuzz(i))"
+  },
+  {
+    "id": 17,
+    "category": "Step 6: 総合復習テスト",
+    "title": "第17問：【復習】自己紹介文の出力",
+    "description": "",
+    "task": "<p>画面に <code>Pythonの学習をはじめました！</code> と出力してください。</p>",
+    "initial_code": "# コードを書いて実行してください\n",
+    "expected_output": "Pythonの学習をはじめました！",
+    "model_answer": "print(\"Pythonの学習をはじめました！\")"
+  },
+  {
+    "id": 18,
+    "category": "Step 6: 総合復習テスト",
+    "title": "第18問：【復習】割り算の余りを求める",
+    "description": "",
+    "task": "<p><code>25</code> を <code>4</code> で割ったときの「余り」を計算し、その結果を出力してください。</p>",
+    "initial_code": "# 計算してprintで出力してください\n",
+    "expected_output": "1",
+    "model_answer": "print(25 % 4)"
+  },
+  {
+    "id": 19,
+    "category": "Step 6: 総合復習テスト",
+    "title": "第19問：【復習】長方形の面積計算",
+    "description": "",
+    "task": "<p>縦の長さ <code>h = 7</code>、横の長さ <code>w = 12</code> の長方形の面積（縦 × 横）を計算し、結果を出力してください。</p>",
+    "initial_code": "h = 7\nw = 12\n# 面積を計算して出力してください\n",
+    "expected_output": "84",
+    "model_answer": "h = 7\nw = 12\nprint(h * w)"
+  },
+  {
+    "id": 20,
+    "category": "Step 6: 総合復習テスト",
+    "title": "第20問：【復習】正・負・ゼロの判定",
+    "description": "",
+    "task": "<p>変数 <code>val = -8</code> に対し、以下のように判定して出力してください。</p><ul><li>0より大きい場合：<code>正の数</code></li><li>0より小さい場合：<code>負の数</code></li><li>0の場合：<code>ゼロ</code></li></ul>",
+    "initial_code": "val = -8\n# 条件分岐を記述してください\n",
+    "expected_output": "負の数",
+    "model_answer": "val = -8\nif val > 0:\n    print(\"正の数\")\nelif val < 0:\n    print(\"負の数\")\nelse:\n    print(\"ゼロ\")"
+  },
+  {
+    "id": 21,
+    "category": "Step 6: 総合復習テスト",
+    "title": "第21問：【復習】カウントダウン表示",
+    "description": "",
+    "task": "<p><code>for</code> 文と <code>range()</code> を使って、<code>5</code> から <code>1</code> までの数値を1行ずつ改行してカウントダウン出力してください。</p>",
+    "initial_code": "# 5から1までを出力するループを書いてください\n",
+    "expected_output": "5\n4\n3\n2\n1",
+    "model_answer": "for i in range(5, 0, -1):\n    print(i)"
+  },
+  {
+    "id": 22,
+    "category": "Step 6: 総合復習テスト",
+    "title": "第22問：【復習】偶数だけの出力",
+    "description": "",
+    "task": "<p>リスト <code>data = [3, 8, 11, 14, 20, 27]</code> の中から、<strong>偶数だけ</strong>を取り出して1行ずつ出力してください。</p>",
+    "initial_code": "data = [3, 8, 11, 14, 20, 27]\n# ループとif文を組み合わせて偶数だけ出力してください\n",
+    "expected_output": "8\n14\n20",
+    "model_answer": "data = [3, 8, 11, 14, 20, 27]\nfor n in data:\n    if n % 2 == 0:\n        print(n)"
+  },
+  {
+    "id": 23,
+    "category": "Step 6: 総合復習テスト",
+    "title": "第23問：【復習】2乗を返す関数",
+    "description": "",
+    "task": "<p>1つの数値 <code>x</code> を受け取り、その数値を2乗（<code>x * x</code>）した結果を <code>return</code> する関数 <code>square(x)</code> を作成してください。<br>その後、<code>square(9)</code> を呼び出して結果を出力してください。</p>",
+    "initial_code": "# 関数 square(x) を定義して呼び出してください\n",
+    "expected_output": "81",
+    "model_answer": "def square(x):\n    return x * x\n\nprint(square(9))"
+  },
+  {
+    "id": 24,
+    "category": "Step 6: 総合復習テスト",
+    "title": "第24問：【復習】平均値を求める関数",
+    "description": "",
+    "task": "<p>3つのテスト点数 <code>a, b, c</code> を受け取り、その平均点（合計 ÷ 3）を <code>return</code> する関数 <code>calc_average(a, b, c)</code> を作成してください。<br>その後、<code>calc_average(70, 80, 90)</code> を呼び出して結果を出力してください。</p>",
+    "initial_code": "# 関数 calc_average を作成して呼び出してください\n",
+    "expected_output": "80.0",
+    "model_answer": "def calc_average(a, b, c):\n    return (a + b + c) / 3\n\nprint(calc_average(70, 80, 90))"
+  },
+  {
+    "id": 25,
+    "category": "Step 6: 総合復習テスト",
+    "title": "第25問：【復習】特定文字のカウント関数",
+    "description": "",
+    "task": "<p>文字列のリスト <code>words</code> を受け取り、そのリストの中に <code>\"apple\"</code> が何個含まれているかをカウントして返す関数 <code>count_apples(words)</code> を作成してください。<br>与えられたリスト <code>basket = [\"apple\", \"banana\", \"apple\", \"orange\", \"apple\"]</code> を渡して結果を出力してください。</p>",
+    "initial_code": "def count_apples(words):\n    # ここに処理を書いて個数をreturnしてください\n    pass\n\nbasket = [\"apple\", \"banana\", \"apple\", \"orange\", \"apple\"]\nprint(count_apples(basket))",
+    "expected_output": "3",
+    "model_answer": "def count_apples(words):\n    count = 0\n    for w in words:\n        if w == \"apple\":\n            count += 1\n    return count\n\nbasket = [\"apple\", \"banana\", \"apple\", \"orange\", \"apple\"]\nprint(count_apples(basket))"
+  },
+  {
+    "id": 26,
+    "category": "Step 6: 総合復習テスト",
+    "title": "第26問：【復習】最小値を見つける関数",
+    "description": "",
+    "task": "<p>数値リストを受け取り、その中の最小値をループを使って探して返す関数 <code>find_min(numbers)</code> を作成してください。<br>（※組み込みの <code>min()</code> は使わずに実装してください）<br>与えられた <code>nums = [45, 12, 78, 6, 34]</code> を渡して結果を出力してください。</p>",
+    "initial_code": "def find_min(numbers):\n    # ループを使って最小値を探してreturnしてください\n    pass\n\nnums = [45, 12, 78, 6, 34]\nprint(find_min(nums))",
+    "expected_output": "6",
+    "model_answer": "def find_min(numbers):\n    min_val = numbers[0]\n    for n in numbers:\n        if n < min_val:\n            min_val = n\n    return min_val\n\nnums = [45, 12, 78, 6, 34]\nprint(find_min(nums))"
+  },
+  {
+    "id": 27,
+    "category": "Step 7: 応用アルゴリズム問題",
+    "title": "第27問：【フィルタリング】条件に合う要素だけの抽出",
+    "description": "<h4>【新出文法：空リストと要素の追加 append()】</h4><p>条件に合うデータだけを集めた新しいリストを作るときは、空のリスト <code>[]</code> を用意し、<code>リスト名.append(追加したい値)</code> を使って後ろに要素を1つずつ追加していきます。</p><h4>【使用例】</h4><pre><code>evens = []  # 空のリストを作成\nevens.append(2)  # 2 を追加\nevens.append(4)  # 4 を追加\nprint(evens)     # [2, 4] と表示される</code></pre>",
+    "task": "<p>数値のリストを受け取り、その中の<strong>「10以上の数値だけ」を集めた新しいリスト</strong>を作って返す関数 <code>filter_greater_than_10(numbers)</code> を作成してください。<br>与えられたリスト <code>data = [5, 12, 3, 20, 8, 15]</code> を渡して結果を出力してください。</p>",
+    "initial_code": "def filter_greater_than_10(numbers):\n    # 空のリストを用意し、ループとif文、.append()を使って新しいリストを返してください\n    pass\n\ndata = [5, 12, 3, 20, 8, 15]\nprint(filter_greater_than_10(data))",
+    "expected_output": "[12, 20, 15]",
+    "model_answer": "def filter_greater_than_10(numbers):\n    result = []\n    for n in numbers:\n        if n >= 10:\n            result.append(n)\n    return result\n\ndata = [5, 12, 3, 20, 8, 15]\nprint(filter_greater_than_10(data))"
+  },
+  {
+    "id": 28,
+    "category": "Step 7: 応用アルゴリズム問題",
+    "title": "第28問：【線形探索】特定の値が存在するか判定する",
+    "description": "<h4>【アルゴリズムの定石：早期リターン】</h4><p>リストの中に特定の値があるかを調べる際、ループの途中で見つかった瞬間に <code>return True</code> して関数を終了（早期リターン）させます。<br>ループが最後まで回り切って一度も見つからなかった場合のみ、ループの外側で <code>return False</code> を実行します。</p><pre><code>for x in リスト:\n    if x == 目標値:\n        return True   # 見つかったら即座に終了\nreturn False          # 1つも見つからずにループが終わったらFalse</code></pre>",
+    "task": "<p>リスト <code>numbers</code> と探したい値 <code>target</code> を受け取り、リスト内に <code>target</code> が含まれていれば <code>True</code>、なければ <code>False</code> を返す関数 <code>contains_value(numbers, target)</code> を作成してください。<br>与えられた <code>scores = [35, 60, 72, 88, 91]</code> と <code>target = 72</code> を渡して結果を出力してください。</p>",
+    "initial_code": "def contains_value(numbers, target):\n    # ループを使ってtargetが見つかるか判定してください\n    pass\n\nscores = [35, 60, 72, 88, 91]\nprint(contains_value(scores, 72))",
+    "expected_output": "True",
+    "model_answer": "def contains_value(numbers, target):\n    for n in numbers:\n        if n == target:\n            return True\n    return False\n\nscores = [35, 60, 72, 88, 91]\nprint(contains_value(scores, 72))"
+  },
+  {
+    "id": 29,
+    "category": "Step 7: 応用アルゴリズム問題",
+    "title": "第29問：【累積積】階乗（Factorial）の計算",
+    "description": "<h4>【階乗の考え方】</h4><p>1からある数 n までのすべての整数を順番に掛け合わせた計算のことを<strong>「階乗（かいじょう）」</strong>と呼びます。<br>たとえば、5の階乗は <code>1 × 2 × 3 × 4 × 5 = 120</code> となります。</p><h4>【プログラムでの解き方】</h4><p>第10問で学んだ「足し算の合計」と同じ発想で解くことができます。<br>ただし、掛け算の場合は<strong>初期値を <code>0</code> にしてしまうと何を掛けても <code>0</code> になってしまうため、最初の掛け算の基準値として <code>1</code> を用意する</strong>のがポイントです。</p>",
+    "task": "<p>正の整数 <code>n</code> を受け取り、1から <code>n</code> までのすべての整数を掛け合わせた値（階乗）を返す関数 <code>factorial(n)</code> を作成してください。<br>その後、<code>factorial(5)</code>（1 × 2 × 3 × 4 × 5 = 120）を呼び出して結果を出力してください。</p>",
+    "initial_code": "def factorial(n):\n    # 初期値を1にして、1からnまでを掛け合わせるループを書いてください\n    pass\n\nprint(factorial(5))",
+    "expected_output": "120",
+    "model_answer": "def factorial(n):\n    result = 1\n    for i in range(1, n + 1):\n        result *= i\n    return result\n\nprint(factorial(5))"
+  },
+  {
+    "id": 30,
+    "category": "Step 7: 応用アルゴリズム問題",
+    "title": "第30問：【多重ループ】九九の段を出力する",
+    "description": "<h4>【考え方：ループの組み合わせ】</h4><p>ループの中に別のループを入れる構造を<strong>「二重ループ」</strong>と呼びます。外側のループが1回進むごとに、内側のループが最初から最後まで回ります。</p><h4>【復習：f文字列（f-strings）の使い方】</h4><p>文字列の中に変数や計算式を埋め込みたいときは、文字列の先頭に <code>f</code> を付け、波かっこ <code>{...}</code> の中に変数名や式を書きます。</p><pre><code>a = 3\nb = 5\nprint(f\"{a} * {b} = {a * b}\")  # 「3 * 5 = 15」と出力される</code></pre>",
+    "task": "<p>指定された段 <code>dan</code> の九九の計算式（1から9まで）を、1行ずつ <code>段 * 相手 = 答え</code> の形式で出力する関数 <code>print_kuku_dan(dan)</code> を作成してください。<br>その後、<code>print_kuku_dan(3)</code> を呼び出して3の段を出力してください。</p>",
+    "initial_code": "def print_kuku_dan(dan):\n    # 1から9までの相手の数と掛け算した結果をf文字列を使って出力してください\n    pass\n\nprint_kuku_dan(3)",
+    "expected_output": "3 * 1 = 3\n3 * 2 = 6\n3 * 3 = 9\n3 * 4 = 12\n3 * 5 = 15\n3 * 6 = 18\n3 * 7 = 21\n3 * 8 = 24\n3 * 9 = 27",
+    "model_answer": "def print_kuku_dan(dan):\n    for i in range(1, 10):\n        print(f\"{dan} * {i} = {dan * i}\")\n\nprint_kuku_dan(3)"
+  },
+  {
+    "id": 31,
+    "category": "Step 7: 応用アルゴリズム問題",
+    "title": "第31問：【文字列探索】母音の出現回数を数える",
+    "description": "<h4>【考え方】</h4><p>文字列もリストと同じように、<code>for 変数 in 文字列:</code> と書くことで1文字ずつ順番に取り出すことができます。<br>複数の条件判定（または <code>if char == \"a\" or char == \"i\" or ...</code>）を組み合わせてカウントします。</p><pre><code>text = \"hello\"\nfor ch in text:\n    print(ch)  # 'h', 'e', 'l', 'l', 'o' が1文字ずつ出る</code></pre>",
+    "task": "<p>小文字の英単語 <code>word</code> を受け取り、その中に含まれる<strong>母音（<code>a, e, i, o, u</code>）の合計個数</strong>を数えて返す関数 <code>count_vowels(word)</code> を作成してください。<br>与えられた単語 <code>target_word = \"programming\"</code> を渡して結果を出力してください。</p>",
+    "initial_code": "def count_vowels(word):\n    # 文字列を1文字ずつループして母音の数をカウントしてください\n    pass\n\ntarget_word = \"programming\"\nprint(count_vowels(target_word))",
+    "expected_output": "3",
+    "model_answer": "def count_vowels(word):\n    count = 0\n    for char in word:\n        if char == \"a\" or char == \"e\" or char == \"i\" or char == \"o\" or char == \"u\":\n            count += 1\n    return count\n\ntarget_word = \"programming\"\nprint(count_vowels(target_word))"
+  }
+]

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pythonプログラミング学習スタジオ</title>
+  <!-- PyScript Core -->
+  <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+  <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --primary-light: #eef2ff;
+      --accent-green: #10b981;
+      --accent-green-light: #ecfdf5;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", Meiryo, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 24px 16px;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 880px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      padding: 32px;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    .view { display: none; }
+    .view.active { display: block; }
+
+    .top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 2px dashed var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+    .brand-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+    .brand-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin: 4px 0 0 0;
+    }
+    .brand-sub-accent {
+      font-size: 0.85rem;
+      color: #4f46e5;
+      font-weight: 600;
+      margin: 2px 0 0 0;
+    }
+    .course-selector-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f5f9;
+      padding: 6px 12px;
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+    }
+    .course-selector-wrap label {
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: var(--text-muted);
+    }
+    .course-select {
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 6px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--text);
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .course-select:focus {
+      border-color: var(--primary);
+    }
+
+    .category-section { margin-bottom: 28px; }
+    .category-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #312e81;
+      border-left: 5px solid var(--primary);
+      padding-left: 12px;
+      margin-bottom: 12px;
+    }
+    .category-badge {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+
+    .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toc-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .toc-item:hover {
+      background: #faf5ff;
+      border-color: #c084fc;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(192, 132, 252, 0.12);
+    }
+    .toc-item-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .toc-badge {
+      background: #e0e7ff;
+      color: #3730a3;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 6px;
+      min-width: 44px;
+      text-align: center;
+    }
+    .toc-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+    .toc-arrow {
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: transform 0.2s;
+    }
+    .toc-item:hover .toc-arrow {
+      transform: translateX(4px);
+      color: var(--primary);
+    }
+
+    .nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f1f5f9;
+      padding: 10px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .nav-indicator {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #475569;
+    }
+    .nav-buttons { display: flex; gap: 8px; }
+    .btn-nav {
+      background: #ffffff;
+      color: #334155;
+      padding: 6px 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-nav:disabled {
+      background: #f8fafc;
+      color: #94a3b8;
+      border-color: #e2e8f0;
+      cursor: not-allowed;
+    }
+    .btn-nav:hover:not(:disabled) {
+      background: #e2e8f0;
+    }
+    .btn-toc-back {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+    .btn-toc-back:hover {
+      background: var(--primary-hover);
+    }
+
+    .box {
+      background: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 16px 20px;
+      margin: 16px 0;
+      border-radius: 0 10px 10px 0;
+    }
+    .box h3 {
+      margin: 0 0 8px 0;
+      font-size: 1rem;
+      color: #1e40af;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .box-task {
+      background: var(--accent-green-light);
+      border-left-color: var(--accent-green);
+    }
+    .box-task h3 { color: #065f46; }
+
+    pre {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      margin: 8px 0;
+      line-height: 1.5;
+    }
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+    textarea {
+      width: 100%;
+      height: 160px;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 0.95rem;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      resize: vertical;
+      tab-size: 4;
+      outline: none;
+      line-height: 1.5;
+    }
+    textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    .btn-group {
+      margin: 16px 0;
+      display: flex;
+      gap: 12px;
+    }
+    button.action {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-run {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-run:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+    }
+    .btn-answer {
+      background: #64748b;
+      color: #fff;
+    }
+    .btn-answer:hover {
+      background: #475569;
+    }
+
+    .output-area {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: Consolas, Monaco, monospace;
+      padding: 16px;
+      border-radius: 8px;
+      min-height: 70px;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin-top: 8px;
+    }
+    .status-msg {
+      margin-top: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .pass { color: var(--accent-green); }
+    .fail { color: #dc2626; }
+
+    .error-assistant {
+      display: none;
+      background: #fff1f2;
+      border: 1px solid #fecdd3;
+      border-left: 4px solid #e11d48;
+      padding: 14px 18px;
+      margin-top: 14px;
+      border-radius: 0 10px 10px 0;
+    }
+    .error-assistant h4 {
+      margin: 0 0 6px 0;
+      color: #9f1239;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .error-assistant p {
+      margin: 0;
+      color: #881337;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .answer-box {
+      display: none;
+      background: #fefce8;
+      border-left: 4px solid #ca8a04;
+      padding: 14px 18px;
+      margin-top: 16px;
+      border-radius: 0 10px 10px 0;
+    }
+    .answer-box h3 {
+      margin: 0 0 6px 0;
+      font-size: 0.95rem;
+      color: #854d0e;
+    }
+
+    /* コピーライト表示 */
+    .footer-copyright {
+      margin-top: 32px;
+      text-align: right;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ==================== VIEW 1: 目次画面 ==================== -->
+  <div id="view-toc" class="view active">
+    <div class="top-header">
+      <div>
+        <h1 id="course-title" class="brand-title">📚 Pythonプログラミング問題集１</h1>
+        <p class="brand-sub">学習したい分野から問題を選んで挑戦しましょう</p>
+        <p class="brand-sub-accent">繰り返し挑戦してマスターしましょう</p>
+      </div>
+      <div class="course-selector-wrap">
+        <label for="course-select">コース選択:</label>
+        <select id="course-select" class="course-select" onchange="switchCourse(this.value)">
+        </select>
+      </div>
+    </div>
+
+    <div id="toc-categories-container">
+      <p style="color: #64748b;">問題を読み込み中...</p>
+    </div>
+  </div>
+
+  <!-- ==================== VIEW 2: 問題解答画面 ==================== -->
+  <div id="view-detail" class="view">
+    <div class="nav-bar">
+      <button class="btn-nav btn-toc-back" py-click="show_toc">☰ 目次へ戻る</button>
+      <div id="nav-indicator" class="nav-indicator">問題 1 / 10</div>
+      <div class="nav-buttons">
+        <button id="btn-prev" class="btn-nav" py-click="prev_problem">← 前へ</button>
+        <button id="btn-next" class="btn-nav" py-click="next_problem">次へ →</button>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+      <span id="problem-category-badge" class="category-badge">カテゴリ</span>
+    </div>
+    <h2 id="problem-title" style="margin-top: 0; font-size: 1.35rem; color: #0f172a;">タイトル</h2>
+
+    <!-- 1. 解説エリア -->
+    <div id="desc-container" class="box">
+      <h3>📖 ポイント解説</h3>
+      <div id="problem-desc">解説テキスト</div>
+    </div>
+
+    <!-- 2. 課題エリア -->
+    <div class="box box-task">
+      <h3>🎯 課題</h3>
+      <div id="problem-task">課題テキスト</div>
+    </div>
+
+    <!-- 3. コード入力エリア -->
+    <h3>💻 プログラム作成</h3>
+    <textarea id="code-input" spellcheck="false" placeholder="# ここにコードを入力してください"></textarea>
+
+    <div class="btn-group">
+      <button class="action btn-run" py-click="execute_code">▶ 実行して判定</button>
+      <button class="action btn-answer" id="btn-toggle-answer" onclick="toggleAnswer()">💡 模範解答を見る</button>
+    </div>
+
+    <!-- 4. 実行結果・判定 -->
+    <h3>実行結果</h3>
+    <div id="output" class="output-area">（実行ボタンを押すとここに結果が表示されます）</div>
+    <div id="status" class="status-msg"></div>
+
+    <!-- 日本語エラーアシスタント -->
+    <div id="error-assistant" class="error-assistant">
+      <h4>🔍 エラー解決のヒント</h4>
+      <p id="error-hint-text"></p>
+    </div>
+
+    <!-- 5. 模範解答エリア -->
+    <div id="answer-box" class="answer-box">
+      <h3>💡 模範解答</h3>
+      <pre><code id="answer-code"></code></pre>
+    </div>
+  </div>
+
+  <!-- コピーライト -->
+  <div class="footer-copyright">
+    © 2026 三田市ICTクラブ協会
+  </div>
+
+</div>
+
+<!-- UI制御・コース定義スクリプト -->
+<script>
+  window.COURSES = [
+    { id: "1", title: "Pythonプログラミング問題集１", file: "problems1.json", label: "問題集１：基礎文法編" },
+    { id: "2", title: "Pythonプログラミング問題集２", file: "problems2.json", label: "問題集２：データ構造と応用編" },
+    { id: "3", title: "Pythonプログラミング問題集３", file: "problems3.json", label: "問題集３：アルゴリズム基礎演習" }
+  ];
+
+  const selectElem = document.getElementById("course-select");
+  const searchParams = new URLSearchParams(window.location.search);
+  const currentSetId = searchParams.get("set") || "1";
+
+  window.COURSES.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c.id;
+    opt.innerText = c.label;
+    if (c.id === currentSetId) opt.selected = true;
+    selectElem.appendChild(opt);
+  });
+
+  function switchCourse(setId) {
+    window.location.search = '?set=' + setId;
+  }
+
+  function toggleAnswer() {
+    const box = document.getElementById('answer-box');
+    const btn = document.getElementById('btn-toggle-answer');
+    if (box.style.display === 'block') {
+      box.style.display = 'none';
+      btn.innerText = '💡 模範解答を見る';
+    } else {
+      box.style.display = 'block';
+      btn.innerText = '✕ 模範解答を閉じる';
+    }
+  }
+
+  function selectProblemFromJS(index) {
+    if (window.pySelectProblem) {
+      window.pySelectProblem(index);
+    }
+  }
+</script>
+
+<!-- Python (PyScript) ロジック -->
+<script type="py">
+import sys
+import io
+import re
+import js
+from collections import defaultdict
+from pyodide.ffi import create_proxy
+from pyodide.http import pyfetch
+
+problems = []
+current_index = 0
+
+async def load_problems():
+    global problems
+    
+    search_params = js.URLSearchParams.new(js.window.location.search)
+    set_id = search_params.get("set") or "1"
+    
+    target_file = f"problems{set_id}.json"
+    course_title = f"Pythonプログラミング問題集{set_id}"
+    
+    try:
+        courses_list = js.window.COURSES
+        for c in courses_list:
+            if str(c.id) == str(set_id):
+                target_file = c.file
+                course_title = c.title
+                break
+    except Exception as e:
+        pass
+
+    js.document.getElementById("course-title").innerText = f"📚 {course_title}"
+    js.document.title = course_title
+
+    try:
+        response = await pyfetch(target_file)
+        problems = await response.json()
+        build_toc()
+    except Exception as e:
+        container = js.document.getElementById("toc-categories-container")
+        container.innerHTML = f"""
+        <div style="padding: 20px; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 8px; color: #9f1239;">
+          <strong>問題ファイル (<code>{target_file}</code>) の読み込みに失敗しました。</strong><br>
+          ファイルが <code>index.html</code> と同じフォルダに存在するか確認してください。<br>
+          <small style="color: #64748b;">エラー詳細: {e}</small>
+        </div>
+        """
+
+def build_toc():
+    container = js.document.getElementById("toc-categories-container")
+    container.innerHTML = ""
+
+    categories = defaultdict(list)
+    for idx, prob in enumerate(problems):
+        cat = prob.get("category", "その他")
+        categories[cat].append((idx, prob))
+
+    for cat_name, items in categories.items():
+        sec_div = js.document.createElement("div")
+        sec_div.className = "category-section"
+
+        sec_title = f"""
+        <div class="category-title">
+          <span>{cat_name}</span>
+          <span class="category-badge">{len(items)}問</span>
+        </div>
+        """
+        sec_div.insertAdjacentHTML("beforeend", sec_title)
+
+        ul_elem = js.document.createElement("ul")
+        ul_elem.className = "toc-list"
+
+        for idx, prob in items:
+            title = prob.get("title", f"問題 {idx + 1}")
+            item_html = f"""
+            <li class="toc-item" onclick="selectProblemFromJS({idx})">
+              <div class="toc-item-left">
+                <span class="toc-badge">Q{idx + 1}</span>
+                <span class="toc-title">{title}</span>
+              </div>
+              <span class="toc-arrow">挑戦する →</span>
+            </li>
+            """
+            ul_elem.insertAdjacentHTML("beforeend", item_html)
+
+        sec_div.appendChild(ul_elem)
+        container.appendChild(sec_div)
+
+def select_problem(index):
+    render_problem(index)
+    js.document.getElementById("view-toc").classList.remove("active")
+    js.document.getElementById("view-detail").classList.add("active")
+
+js.window.pySelectProblem = create_proxy(select_problem)
+
+def show_toc(event):
+    js.document.getElementById("view-detail").classList.remove("active")
+    js.document.getElementById("view-toc").classList.add("active")
+
+def render_problem(index):
+    global current_index
+    if not problems:
+        return
+
+    current_index = index
+    prob = problems[index]
+    total_count = len(problems)
+
+    category_name = prob.get("category", "基礎")
+    js.document.getElementById("problem-category-badge").innerText = category_name
+    js.document.getElementById("problem-title").innerText = prob.get("title", "")
+    
+    desc_text = prob.get("description", "").strip()
+    desc_box = js.document.getElementById("desc-container")
+    if desc_text:
+        desc_box.style.display = "block"
+        js.document.getElementById("problem-desc").innerHTML = desc_text
+    else:
+        desc_box.style.display = "none"
+
+    js.document.getElementById("problem-task").innerHTML = prob.get("task", "")
+    js.document.getElementById("code-input").value = prob.get("initial_code", "")
+    js.document.getElementById("answer-code").innerText = prob.get("model_answer", "")
+    js.document.getElementById("nav-indicator").innerText = f"問題 {index + 1} / {total_count}"
+
+    js.document.getElementById("output").innerText = "（実行ボタンを押すとここに結果が表示されます）"
+    status_elem = js.document.getElementById("status")
+    status_elem.className = "status-msg"
+    status_elem.innerText = ""
+    
+    js.document.getElementById("error-assistant").style.display = "none"
+
+    answer_box = js.document.getElementById("answer-box")
+    answer_box.style.display = "none"
+    js.document.getElementById("btn-toggle-answer").innerText = "💡 模範解答を見る"
+
+    js.document.getElementById("btn-prev").disabled = (index == 0)
+    js.document.getElementById("btn-next").disabled = (index == total_count - 1)
+
+def prev_problem(event):
+    if current_index > 0:
+        render_problem(current_index - 1)
+
+def next_problem(event):
+    if current_index < len(problems) - 1:
+        render_problem(current_index + 1)
+
+def diagnose_error(code, error_obj):
+    err_type = type(error_obj).__name__
+    err_msg = str(error_obj)
+
+    if "\u3000" in code:
+        return "コードの中に「全角スペース」が混ざっています。半角スペースに置き換えてください。"
+
+    if err_type == "SyntaxError":
+        lines = code.splitlines()
+        for idx, line in enumerate(lines, start=1):
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#"):
+                continue
+            for kw in ["if ", "elif ", "else", "for ", "while ", "def "]:
+                if stripped.startswith(kw) and not stripped.endswith(":"):
+                    return f"{idx}行目の「{kw.strip()}」の行末に半角コロン <code>:</code> が抜けています。"
+
+        if "was never closed" in err_msg or "unexpected EOF while parsing" in err_msg:
+            return "カッコ <code>( )</code> やクォート <code>\" \"</code>, <code>' '</code> が正しく閉じられていません。"
+        
+        if "invalid syntax" in err_msg:
+            return "文法に誤りがあります。記号のミス（例: <code>=</code> と <code>==</code>）や不要な文字がないか確認してください。"
+
+    elif err_type == "IndentationError":
+        if "expected an indented block" in err_msg:
+            return "字下げ（インデント）が不足しています。<code>if</code>、<code>for</code>、<code>while</code> などの下の行は「半角スペース4つ」で字下げを行ってください。"
+        if "unindent does not match" in err_msg:
+            return "字下げの深さ（スペースの数）が揃っていません。他の行と同じ半角スペース数（4つ）に揃えてください。"
+        return "字下げ（インデント）の位置を確認してください。"
+
+    elif err_type == "NameError":
+        m = re.search(r"name '(\w+)' is not defined", err_msg)
+        if m:
+            var_name = m.group(1)
+            if var_name in ["Print", "PRINT"]:
+                return f"すべて小文字で <code>print</code> と記述してください。"
+            if var_name in ["true", "false"]:
+                return f"先頭を大文字にして <code>{var_name.capitalize()}</code> と記述してください。"
+            return f"「<code>{var_name}</code>」という変数や関数が見つかりません。スペルミスを確認してください。"
+
+    elif err_type == "TypeError":
+        if "can only concatenate str" in err_msg or "unsupported operand type" in err_msg:
+            return "文字列型（str）と数値型（int）の計算・結合エラーです。数値を文字にする場合は <code>str(数値)</code> を使ってください。"
+
+    elif err_type == "IndexError":
+        return "リストの範囲外のインデックスを指定しています。0始まりの番号を確認してください。"
+
+    return f"コードの記述を確認してみましょう。（エラー: {err_type}）"
+
+def execute_code(event):
+    if not problems:
+        return
+
+    code_input = js.document.getElementById("code-input").value
+    output_elem = js.document.getElementById("output")
+    status_elem = js.document.getElementById("status")
+    assistant_box = js.document.getElementById("error-assistant")
+    hint_elem = js.document.getElementById("error-hint-text")
+    
+    assistant_box.style.display = "none"
+
+    current_prob = problems[current_index]
+    expected_output = str(current_prob.get("expected_output", "")).strip()
+
+    old_stdout = sys.stdout
+    redirected_output = io.StringIO()
+    sys.stdout = redirected_output
+
+    try:
+        exec(code_input, {})
+        result = redirected_output.getvalue()
+        clean_result = result.strip()
+        output_elem.innerText = clean_result if clean_result else "(出力なし)"
+
+        if clean_result == expected_output:
+            status_elem.className = "status-msg pass"
+            status_elem.innerText = "🎉 正解です！お見事！"
+        else:
+            status_elem.className = "status-msg fail"
+            status_elem.innerText = f"❌ 惜しい！期待される出力と異なります。"
+
+    except Exception as e:
+        output_elem.innerText = f"エラーが発生しました:\n{e}"
+        status_elem.className = "status-msg fail"
+        status_elem.innerText = "⚠️ エラーが発生しました。下のヒントを確認してみましょう。"
+        
+        hint_message = diagnose_error(code_input, e)
+        hint_elem.innerHTML = hint_message
+        assistant_box.style.display = "block"
+    
+    finally:
+        sys.stdout = old_stdout
+
+import asyncio
+asyncio.ensure_future(load_problems())
+</script>
+
+</body>
+</html>
