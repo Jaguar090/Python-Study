@@ -82,7 +82,17 @@
   {
     "id": 9,
     "category": "Step 2: リスト操作を使いこなす",
-    "title": "第9問：値の入れ替え（スワップ構文とtemp）",
+    "title": "第9問：要素の取り出しと範囲指定（インデックスとスライス）",
+    "description": "<h4>【インデックス（添字）の基本ルール】</h4><p>リストの各要素には、先頭から順に <code>0, 1, 2, ...</code> と背番号が振られており、これを<strong>インデックス（添字）</strong>と呼びます。<br><code>リスト[番号]</code> と書くことで、指定した位置の要素を取り出すことができます。</p><h4>【負のインデックス（後ろからの指定）】</h4><p>Pythonでは、インデックスにマイナスの数値を指定すると<strong>末尾から逆順</strong>に要素を数えられます。<br>一番後ろの要素は <code>-1</code>、後ろから2番目は <code>-2</code> となり、「リストの長さが分からなくても最後の値を取り出せる」ため実務や入試で頻出します。</p><h4>【スライス構文：[開始 : 終了]】</h4><p>リストの一部を切り取って新しい部分リストを作る操作を<strong>スライス</strong>と呼びます。<br><code>リスト[開始インデックス : 終了インデックス]</code> で指定範囲を取り出せます。</p><ul><li><strong>終了インデックスの要素は含まれません</strong>（<code>range()</code> と同様に終了の1つ手前まで）。</li><li>先頭から切り取る場合は開始を省略できます（例: <code>[:3]</code> は0番目から2番目まで）。</li><li>末尾まで切り取る場合は終了を省略できます（例: <code>[2:]</code> は2番目から最後まで）。</li></ul><h4>【使用例】</h4><pre><code>nums = [10, 20, 30, 40, 50]\nprint(nums[0])     # 出力: 10 （先頭の要素）\nprint(nums[-1])    # 出力: 50 （一番後ろの要素）\nprint(nums[1:4])   # 出力: [20, 30, 40] （1番目から3番目まで切り出し）\nprint(nums[:2])    # 出力: [10, 20] （先頭から2つ切り出し）</code></pre>",
+    "task": "<p>リスト <code>scores = [55, 68, 72, 84, 91, 99]</code> があります。<br>1. 先頭の要素（<code>55</code>）をインデックスで取り出して出力してください。<br>2. 負のインデックスを使って一番最後の要素（<code>99</code>）を取り出して次の行に出力してください。<br>3. スライスを使って中央の3要素 <code>[72, 84, 91]</code>（インデックス2から4まで）を取り出してさらに次の行に出力してください。</p>",
+    "initial_code": "scores = [55, 68, 72, 84, 91, 99]\n# 1. 先頭の要素を出力\n\n# 2. 末尾の要素（負のインデックス）を出力\n\n# 3. 中央の3要素（スライス）を出力\n",
+    "expected_output": "55\n99\n[72, 84, 91]",
+    "model_answer": "scores = [55, 68, 72, 84, 91, 99]\nprint(scores[0])\nprint(scores[-1])\nprint(scores[2:5])"
+  },
+  {
+    "id": 10,
+    "category": "Step 2: リスト操作を使いこなす",
+    "title": "第10問：値の入れ替え（スワップ構文とtemp）",
     "description": "<h4>【スワップ（値の交換）の2つの書き方】</h4><p>並び替えアルゴリズムの基礎となる最重要操作です。</p><ol><li><strong>教科書的な手法（一時変数 temp を使う）</strong><br>高校「情報Ⅰ」の共通テストや多くのプログラミング言語では、値を上書きして消してしまわないように一時的な退避用の変数 <code>temp</code> を使って3手で入れ替えます。<pre><code>temp = a  # 1. aの値を一時的に保管\na = b     # 2. bの値をaに上書き\nb = temp  # 3. 保管しておいた元のaの値をbに入れる</code></pre></li><li><strong>Python特有の多重代入</strong><br>Pythonでは <code>a, b = b, a</code> や <code>nums[0], nums[1] = nums[1], nums[0]</code> と書くだけで一行で交換できます。</li></ol><h4>【使用例】</h4><pre><code>nums = [90, 10]\n# 一時変数を使った交換の例\ntemp = nums[0]\nnums[0] = nums[1]\nnums[1] = temp\nprint(nums)  # 出力: [10, 90]</code></pre>",
     "task": "<p>リスト <code>data = [99, 11]</code> があります。<br>先頭（インデックス0）と末尾（インデックス1）の要素を入れ替え、<code>[11, 99]</code> にして出力してください（どちらの入れ替え方法を使っても構いません）。</p>",
     "initial_code": "data = [99, 11]\n# data[0] と data[1] の値をスワップしてください\n\nprint(data)",
@@ -90,9 +100,9 @@
     "model_answer": "data = [99, 11]\ntemp = data[0]\ndata[0] = data[1]\ndata[1] = temp\nprint(data)"
   },
   {
-    "id": 10,
+    "id": 11,
     "category": "Step 3: 書き換えられない配列（タプル）",
-    "title": "第10問：タプルの定義とアンパック代入",
+    "title": "第11問：タプルの定義とアンパック代入",
     "description": "<h4>【タプル（tuple）とは】</h4><p>丸かっこ <code>(値1, 値2, ...)</code> で作ります。リストと似ていますが、<strong>「後から要素を変更・追加・削除できない（イミュータブル）」</strong>という決定的な違いがあります。変更されては困る座標や設定値を安全に保持するのに適しています。</p><h4>【アンパック代入】</h4><p>タプルの中身を一度に複数の変数へ分配して代入できます。</p><h4>【使用例】</h4><pre><code>point = (10, 20)\nx, y = point  # x に 10, y に 20 が代入される\nprint(f\"x座標={x}, y座標={y}\")\n# 出力: x座標=10, y座標=20</code></pre>",
     "task": "<p>長方形の寸法を表すタプル <code>rect = (8, 5)</code>（幅, 高さ）があります。<br>アンパック代入を使って変数 <code>w</code> と <code>h</code> にそれぞれ代入し、面積（<code>w * h</code>）を出力してください。</p>",
     "initial_code": "rect = (8, 5)\n# アンパック代入して面積を計算してください\n",
@@ -100,9 +110,9 @@
     "model_answer": "rect = (8, 5)\nw, h = rect\nprint(w * h)"
   },
   {
-    "id": 11,
+    "id": 12,
     "category": "Step 3: 書き換えられない配列（タプル）",
-    "title": "第11問：複数の値を返す関数",
+    "title": "第12問：複数の値を返す関数",
     "description": "<h4>【関数の複数戻り値】</h4><p>Pythonの関数は、<code>return 値1, 値2</code> のようにカンマで区切ることで、一度に複数の値を返すことができます（内部的にはタプルとして返されています）。</p><h4>【組み込み関数 min() と max()】</h4><ul><li><code>min(データ列)</code> : リスト等の中で<strong>最小の値</strong>を取得します。</li><li><code>max(データ列)</code> : リスト等の中で<strong>最大の値</strong>を取得します。</li></ul><h4>【使用例】</h4><pre><code>def get_min_max(numbers):\n    # 最小値と最大値を同時に返す\n    return min(numbers), max(numbers)\n\n# 戻り値を2つの変数で同時に受け取る（アンパック）\nlow, high = get_min_max([5, 2, 9, 1])\nprint(low)   # 出力: 1 （lowには最小値の1が入る）\nprint(high)  # 出力: 9 （highには最大値の9が入る）</code></pre>",
     "task": "<p>2つの整数 <code>a</code> と <code>b</code> を受け取り、「割り算の商（<code>a // b</code>）」と「余り（<code>a % b</code>）」の2つの値を同時に返す関数 <code>div_and_mod(a, b)</code> を作成してください。<br>その後、<code>q, r = div_and_mod(17, 5)</code> として結果を受け取り、<code>print(q, r)</code> で出力してください。</p>",
     "initial_code": "def div_and_mod(a, b):\n    # 商と余りを同時にreturnしてください\n    pass\n\nq, r = div_and_mod(17, 5)\nprint(q, r)",
@@ -110,9 +120,9 @@
     "model_answer": "def div_and_mod(a, b):\n    return a // b, a % b\n\nq, r = div_and_mod(17, 5)\nprint(q, r)"
   },
   {
-    "id": 12,
+    "id": 13,
     "category": "Step 4: キーと値で管理する（辞書 dict）",
-    "title": "第12問：辞書の基本操作（作成・取得・追加・更新）",
+    "title": "第13問：辞書の基本操作（作成・取得・追加・更新）",
     "description": "<h4>【辞書（dict）とは】</h4><p>「キーワード（キー）」と「データ（値）」をペアで管理する連想配列です。波かっこ <code>{キー: 値}</code> で作成します。</p><ul><li>値の取得：<code>辞書[キー]</code></li><li>値の更新・追加：<code>辞書[キー] = 新しい値</code>（既存キーなら上書き更新、新しいキーなら新規追加）</li></ul><h4>【使用例】</h4><pre><code>user = {\"name\": \"太郎\", \"age\": 15}\nprint(user[\"name\"])  # 出力: 太郎\n\nuser[\"age\"] = 16     # age を 16 に更新\nuser[\"grade\"] = 1    # 新しいキー grade を追加\nprint(user)\n# 出力: {'name': '太郎', 'age': 16, 'grade': 1}</code></pre>",
     "task": "<p>果物の価格辞書 <code>prices = {\"apple\": 120, \"banana\": 100}</code> があります。<br>1. <code>\"apple\"</code> の価格を <code>150</code> に更新してください。<br>2. 新しく <code>\"orange\": 80</code> を追加してください。<br>3. 更新後の <code>prices</code> 辞書を出力してください。</p>",
     "initial_code": "prices = {\"apple\": 120, \"banana\": 100}\n# 更新と追加を行ってください\n\nprint(prices)",
@@ -120,9 +130,9 @@
     "model_answer": "prices = {\"apple\": 120, \"banana\": 100}\nprices[\"apple\"] = 150\nprices[\"orange\"] = 80\nprint(prices)"
   },
   {
-    "id": 13,
+    "id": 14,
     "category": "Step 4: キーと値で管理する（辞書 dict）",
-    "title": "第13問：辞書の走査（itemsメソッド）",
+    "title": "第14問：辞書の走査（itemsメソッド）",
     "description": "<h4>【辞書のループ処理】</h4><p>辞書の中身をfor文ですべて取り出すときは <code>辞書.items()</code> を使うのが最も一般的です。キーと値のペアを同時に受け取ることができます。</p><h4>【使用例】</h4><pre><code>scores = {\"国語\": 80, \"数学\": 90}\nfor subject, point in scores.items():\n    print(f\"{subject}: {point}点\")\n# 出力結果:\n# 国語: 80点\n# 数学: 90点</code></pre><h4>【その他のメソッド】</h4><p>キーだけを取り出す <code>辞書.keys()</code> や、値だけを取り出す <code>辞書.values()</code> もあります。</p>",
     "task": "<p>テストの得点辞書 <code>report = {\"国語\": 85, \"数学\": 90, \"英語\": 75}</code> があります。<br><code>items()</code> とfor文を使って全教科の合計点を計算し、その合計点を出力してください。</p>",
     "initial_code": "report = {\"国語\": 85, \"数学\": 90, \"英語\": 75}\ntotal = 0\n# for文で合計を計算してください\n\nprint(total)",
@@ -130,9 +140,9 @@
     "model_answer": "report = {\"国語\": 85, \"数学\": 90, \"英語\": 75}\ntotal = 0\nfor subject, point in report.items():\n    total += point\nprint(total)"
   },
   {
-    "id": 14,
+    "id": 15,
     "category": "Step 4: キーと値で管理する（辞書 dict）",
-    "title": "第14問：度数分布・出現回数の集計（頻出アルゴリズム）",
+    "title": "第15問：度数分布・出現回数の集計（頻出アルゴリズム）",
     "description": "<h4>【出現回数の集計パターン】</h4><p>アンケート集計やデータ分析で最もよく使われる定番アルゴリズムです。<br>空の辞書 <code>counts = {}</code> を用意し、リスト内の要素を1つずつ確認しながらカウントしていきます。</p><h4>【使用例】</h4><pre><code>words = [\"apple\", \"banana\", \"apple\", \"apple\", \"orange\"]\ncounts = {}  # 集計用の空辞書\n\nfor w in words:\n    if w in counts:\n        counts[w] += 1  # すでに登録されていれば+1\n    else:\n        counts[w] = 1   # 初めて出てきた単語なら1で登録\n\nprint(counts)\n# 出力: {'apple': 3, 'banana': 1, 'orange': 1}</code></pre>",
     "task": "<p>投票結果のリスト <code>votes = [\"A\", \"B\", \"A\", \"C\", \"A\", \"B\"]</code> があります。<br>上記のアルゴリズムを使って各選択肢の得票数を集計した辞書を作成し、出力してください。</p>",
     "initial_code": "votes = [\"A\", \"B\", \"A\", \"C\", \"A\", \"B\"]\ncounts = {}\n# 投票数を集計してください\n\nprint(counts)",
@@ -140,9 +150,9 @@
     "model_answer": "votes = [\"A\", \"B\", \"A\", \"C\", \"A\", \"B\"]\ncounts = {}\nfor v in votes:\n    if v in counts:\n        counts[v] += 1\n    else:\n        counts[v] = 1\nprint(counts)"
   },
   {
-    "id": 15,
+    "id": 16,
     "category": "Step 5: 重複を許さない集まり（集合 set）",
-    "title": "第15問：集合の定義と重複の排除",
+    "title": "第16問：集合の定義と重複の排除",
     "description": "<h4>【集合（set）とは】</h4><p>数学の「集合」と同じ概念で、<strong>「重複した値を絶対に持てない」「順序がない」</strong>という特徴を持ちます。波かっこ <code>{値1, 値2, ...}</code>、または <code>set(リスト)</code> で作ります。</p><h4>【使用例】</h4><pre><code># 集合を直接定義する（重複した「10」は自動で1つにまとまる）\nmy_set = {10, 20, 10, 30}\nprint(my_set)  # 出力: {10, 20, 30}\n\n# 重複したリストを集合に変換して重複を排除する\nnums = [1, 2, 2, 3, 3, 3]\nunique_nums = set(nums)\nprint(unique_nums)       # 出力: {1, 2, 3}\nprint(len(unique_nums))  # 出力: 3 （ユニークな要素数は3個）</code></pre>",
     "task": "<p>重複を含む参加者名簿 <code>users = [\"田中\", \"佐藤\", \"田中\", \"鈴木\", \"佐藤\", \"高橋\"]</code> があります。<br><code>set()</code> を使って重複を排除し、ユニークな参加者が「何人いるか（集合の要素数）」を <code>len()</code> 関数を使って出力してください。</p>",
     "initial_code": "users = [\"田中\", \"佐藤\", \"田中\", \"鈴木\", \"佐藤\", \"高橋\"]\n# 重複を除いた人数を出力してください\n",
@@ -150,9 +160,9 @@
     "model_answer": "users = [\"田中\", \"佐藤\", \"田中\", \"鈴木\", \"佐藤\", \"高橋\"]\nunique_users = set(users)\nprint(len(unique_users))"
   },
   {
-    "id": 16,
+    "id": 17,
     "category": "Step 5: 重複を許さない集まり（集合 set）",
-    "title": "第16問：集合演算（共通部分と差集合）",
+    "title": "第17問：集合演算（共通部分と差集合）",
     "description": "<h4>【集合演算の記号】</h4><ul><li><code>A & B</code> : <strong>積集合（AND）</strong>。AとBの両方に共通して含まれる要素。</li><li><code>A | B</code> : <strong>和集合（OR）</strong>。AまたはBのどちらかに含まれる全要素。<br>※縦棒 <code>|</code>（パイプ）は、キーボードの <code>Shift + ¥</code>（または <code>Shift + バッククォート</code>）で入力できます。</li><li><code>A - B</code> : <strong>差集合</strong>。Aに含まれていて、Bには含まれていない要素。</li></ul><h4>【使用例】</h4><pre><code>club_a = {\"佐藤\", \"鈴木\", \"高橋\"}\nclub_b = {\"鈴木\", \"田中\"}\n\n# 両方に所属している人（共通部分）\nprint(club_a & club_b)  # 出力: {'鈴木'}\n\n# Aにだけ所属している人（差集合）\nprint(club_a - club_b)  # 出力: {'佐藤', '高橋'}</code></pre>",
     "task": "<p>月曜日の参加者 <code>mon = {\"A\", \"B\", \"C\", \"D\"}</code> と、火曜日の参加者 <code>tue = {\"C\", \"D\", \"E\", \"F\"}</code> があります。<br>「両日ともに参加した人（共通部分）」を <code>&</code> 演算子で求め、その集合を出力してください。</p>",
     "initial_code": "mon = {\"A\", \"B\", \"C\", \"D\"}\ntue = {\"C\", \"D\", \"E\", \"F\"}\n# 両日参加者を求めて出力してください\n",
@@ -160,9 +170,9 @@
     "model_answer": "mon = {\"A\", \"B\", \"C\", \"D\"}\ntue = {\"C\", \"D\", \"E\", \"F\"}\nboth = mon & tue\nprint(both)"
   },
   {
-    "id": 17,
+    "id": 18,
     "category": "Step 6: 高校情報I頻出アルゴリズム",
-    "title": "第17問：2次元リストの作成と参照（行列データ）",
+    "title": "第18問：2次元リストの作成と参照（行列データ）",
     "description": "<h4>【2次元リストとは】</h4><p>リストの中にリストが入った構造で、Excelのような<strong>「行と列の表データ」</strong>を表現するのに使われます。<br><code>リスト[行番号][列番号]</code> の順に指定して値を取り出します（どちらも0始まり）。</p><h4>【使用例】</h4><pre><code># 3行2列の表データ\ntable = [\n    [10, 20],  # 0行目\n    [30, 40],  # 1行目\n    [50, 60]   # 2行目\n]\n# 1行目の0列目（30）を取り出す\nval = table[1][0]\nprint(val)  # 出力: 30</code></pre>",
     "task": "<p>3人の生徒の「国語、数学、英語」の点数を表した2次元リスト <code>matrix</code> があります。<br>出席番号2番の生徒（インデックス1）の「数学（インデックス1）」の点数を取り出して出力してください。</p>",
     "initial_code": "matrix = [\n    [80, 70, 60],  # 生徒0\n    [90, 85, 95],  # 生徒1\n    [55, 65, 75]   # 生徒2\n]\n# 生徒1の数学の点数を出力してください\n",
@@ -170,9 +180,9 @@
     "model_answer": "matrix = [\n    [80, 70, 60],\n    [90, 85, 95],\n    [55, 65, 75]\n]\nprint(matrix[1][1])"
   },
   {
-    "id": 18,
+    "id": 19,
     "category": "Step 6: 高校情報I頻出アルゴリズム",
-    "title": "第18問：2次元リストの集計（二重ループ）",
+    "title": "第19問：2次元リストの集計（二重ループ）",
     "description": "<h4>【表データの二重ループ集計】</h4><p>2次元リストの全要素を足し合わせるには、外側のループで行を取り出し、内側のループでその行の中の各セルを取り出す<strong>「二重ループ」</strong>を使います。</p><h4>【使用例】</h4><pre><code>data_table = [\n    [1, 2],\n    [3, 4]\n]\ntotal = 0\nfor row in data_table:\n    for val in row:\n        total += val\nprint(total)  # 出力: 10 （1+2+3+4の合計）</code></pre>",
     "task": "<p>与えられた <code>matrix</code> の中にあるすべての数値の合計値を二重ループを使って計算し、出力してください。</p>",
     "initial_code": "matrix = [\n    [10, 20, 30],\n    [40, 50, 60],\n    [70, 80, 90]\n]\ntotal = 0\n# 二重ループで合計を計算してください\n\nprint(total)",
@@ -180,9 +190,9 @@
     "model_answer": "matrix = [\n    [10, 20, 30],\n    [40, 50, 60],\n    [70, 80, 90]\n]\ntotal = 0\nfor row in matrix:\n    for val in row:\n        total += val\nprint(total)"
   },
   {
-    "id": 19,
+    "id": 20,
     "category": "Step 6: 高校情報I頻出アルゴリズム",
-    "title": "第19問：線形探索とフラグ管理",
+    "title": "第20問：線形探索とフラグ管理",
     "description": "<h4>【フラグ（Flag）による状態管理】</h4><p>共通テストで頻出のテクニックです。「見つかったかどうか」を表す変数 <code>found</code> を最初は <code>False</code> にしておき、ループ内で目標値と一致した瞬間に <code>found = True</code> に書き換えて <code>break</code> します。</p><h4>【使用例】</h4><pre><code>data = [10, 25, 40, 55]\ntarget = 40\nfound = False  # 最初は見つかっていない状態\n\nfor x in data:\n    if x == target:\n        found = True\n        break  # 見つかったのでループを終了\n\nif found:\n    print(\"見つかりました\")  # 出力: 見つかりました\nelse:\n    print(\"ありませんでした\")</code></pre>",
     "task": "<p>リスト <code>data = [12, 45, 67, 89, 23]</code> の中に、探したい数値 <code>target = 67</code> が存在するか判定してください。<br>フラグ変数 <code>found</code> を使い、見つかれば <code>発見</code>、見つからなければ <code>なし</code> と出力してください。</p>",
     "initial_code": "data = [12, 45, 67, 89, 23]\ntarget = 67\nfound = False\n\n# ループとフラグ管理を書いてください\n\nif found:\n    print(\"発見\")\nelse:\n    print(\"なし\")",
@@ -190,9 +200,9 @@
     "model_answer": "data = [12, 45, 67, 89, 23]\ntarget = 67\nfound = False\n\nfor x in data:\n    if x == target:\n        found = True\n        break\n\nif found:\n    print(\"発見\")\nelse:\n    print(\"なし\")"
   },
   {
-    "id": 20,
+    "id": 21,
     "category": "Step 6: 高校情報I頻出アルゴリズム",
-    "title": "第20問：二分探索（バイナリサーチ）",
+    "title": "第21問：二分探索（バイナリサーチ）",
     "description": "<h4>【二分探索の仕組み】</h4><p><strong>すでに小さい順に並んでいるデータ</strong>の中から、目標値を高速に探すアルゴリズムです。探索範囲の「中央」と比べることで、探す範囲を毎回「半分」に絞り込みます。</p><h4>【探索範囲が半分に狭まる様子（35を探す例）】</h4><pre><code>インデックス: [ 0,  1,  2,  3,  4,  5,  6]\nデータ配列  : [11, 23, 35, 47, 59, 72, 88]\n\n[1回目] left=0, right=6 -> 中央 mid=3 (値: 47)\n       目標値:35 は 47 より小さいので、探す範囲を「左半分」に絞る (right = mid - 1 = 2)\n探す範囲 : [11, 23, 35]\n[2回目] left=0, right=2 -> 中央 mid=1 (値: 23)\n       目標値:35 は 23 より大きいので、探す範囲を「右半分」に絞る (left = mid + 1 = 2)\n探す範囲 : [35]\n[3回目] left=2, right=2 -> 中央 mid=2 (値: 35)\n       目標値 35 を発見！ インデックス 2 を返す。</code></pre><h4>【コードの流れ】</h4><pre><code>while left &lt;= right:\n    # // は整数で割り算した商を求める（小数を切り捨てる）演算子です\n    mid = (left + right) // 2\n    if data[mid] == target:\n        return mid  # 発見\n    elif data[mid] &lt; target:\n        left = mid + 1   # 右半分へ絞り込み\n    else:\n        right = mid - 1  # 左半分へ絞り込み\nreturn -1  # 最後まで見つからなかった場合</code></pre>",
     "task": "<p>ソート済みリスト <code>sorted_data</code> から、二分探索で <code>target = 35</code> が存在するインデックス（番号）を探して返す関数 <code>binary_search(data, target)</code> を完成させてください。</p>",
     "initial_code": "def binary_search(data, target):\n    left = 0\n    right = len(data) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        # ここに判定と比較処理を書いてください\n        pass\n    return -1  # 見つからなかった場合\n\nsorted_data = [11, 23, 35, 47, 59, 72, 88]\nprint(binary_search(sorted_data, 35))",
@@ -200,9 +210,9 @@
     "model_answer": "def binary_search(data, target):\n    left = 0\n    right = len(data) - 1\n    while left <= right:\n        mid = (left + right) // 2\n        if data[mid] == target:\n            return mid\n        elif data[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n\nsorted_data = [11, 23, 35, 47, 59, 72, 88]\nprint(binary_search(sorted_data, 35))"
   },
   {
-    "id": 21,
+    "id": 22,
     "category": "Step 6: 高校情報I頻出アルゴリズム",
-    "title": "第21問：選択ソート（自力で並び替え）",
+    "title": "第22問：選択ソート（自力で並び替え）",
     "description": "<h4>【選択ソートの仕組み】</h4><p>未整列の部分から<strong>「最小値」</strong>を探し出し、先頭の要素とスワップ（交換）することを繰り返します。</p><h4>【並び替わっていく様子（[64, 25, 12, 22, 11]）】</h4><pre><code>初期状態   : [64, 25, 12, 22, 11]\n[1周目] 0番目以降の最小値は「11」 -> 64 と 11 をスワップ\n        [11 | 25, 12, 22, 64] （11が確定）\n[2周目] 1番目以降の最小値は「12」 -> 25 と 12 をスワップ\n        [11, 12 | 25, 22, 64] （12が確定）\n[3周目] 2番目以降の最小値は「22」 -> 25 と 22 をスワップ\n        [11, 12, 22 | 25, 64] （22が確定）\n[4周目] 3番目以降の最小値は「25」 -> 交換不要\n        [11, 12, 22, 25, 64] （整列完了！）</code></pre>",
     "task": "<p>選択ソートの仕組みを使って、リスト <code>nums</code> を昇順に並び替えるプログラムを完成させてください。</p>",
     "initial_code": "nums = [64, 25, 12, 22, 11]\nn = len(nums)\n\nfor i in range(n):\n    min_idx = i\n    for j in range(i + 1, n):\n        if nums[j] < nums[min_idx]:\n            min_idx = j\n    # ここで nums[i] と nums[min_idx] をスワップしてください\n\nprint(nums)",
@@ -210,9 +220,9 @@
     "model_answer": "nums = [64, 25, 12, 22, 11]\nn = len(nums)\n\nfor i in range(n):\n    min_idx = i\n    for j in range(i + 1, n):\n        if nums[j] < nums[min_idx]:\n            min_idx = j\n    nums[i], nums[min_idx] = nums[min_idx], nums[i]\n\nprint(nums)"
   },
   {
-    "id": 22,
+    "id": 23,
     "category": "Step 6: 高校情報I頻出アルゴリズム",
-    "title": "第22問：バブルソート（隣接交換法）",
+    "title": "第23問：バブルソート（隣接交換法）",
     "description": "<h4>【バブルソートの仕組み】</h4><p>隣り合う2つの要素を左から順に比較し、<strong>「左 &gt; 右」になっていたら交換する</strong>処理を端まで繰り返します。一番大きな値が泡（バブル）のように右端へ押し出されていきます。</p><h4>【並び替わっていく様子（[5, 1, 4, 2, 8]）】</h4><pre><code>初期状態: [5, 1, 4, 2, 8]\n[1周目]\n ・5 と 1 を比較 -> 逆なので交換 [1, 5, 4, 2, 8]\n ・5 と 4 を比較 -> 逆なので交換 [1, 4, 5, 2, 8]\n ・5 と 2 を比較 -> 逆なので交換 [1, 4, 2, 5, 8]\n ・5 と 8 を比較 -> そのまま     [1, 4, 2, 5 | 8] （最大値8が右端に確定）\n[2周目]\n 同様に隣同士を比較・交換していくと、5 が確定 -> [1, 2, 4 | 5, 8]\nこれを繰り返すことで全体が整列されます。</code></pre>",
     "task": "<p>バブルソートを使って、リスト <code>data = [5, 1, 4, 2, 8]</code> を昇順に並び替えるプログラムを完成させてください。</p>",
     "initial_code": "data = [5, 1, 4, 2, 8]\nn = len(data)\n\nfor i in range(n):\n    for j in range(0, n - i - 1):\n        # 隣り合う data[j] と data[j+1] を比較して、逆ならスワップしてください\n        pass\n\nprint(data)",
@@ -220,9 +230,9 @@
     "model_answer": "data = [5, 1, 4, 2, 8]\nn = len(data)\n\nfor i in range(n):\n    for j in range(0, n - i - 1):\n        if data[j] > data[j + 1]:\n            data[j], data[j + 1] = data[j + 1], data[j]\n\nprint(data)"
   },
   {
-    "id": 23,
+    "id": 24,
     "category": "Step 7: 総合復習テスト",
-    "title": "第23問：【復習】条件付きwhileループ",
+    "title": "第24問：【復習】条件付きwhileループ",
     "description": "",
     "task": "<p>初期値 <code>x = 100</code> からスタートし、<code>x</code> が <code>10</code> 未満になるまで毎回「3で割った商（<code>x = x // 3</code>）」に更新し続ける処理を書いてください。<br>更新を繰り返した回数 <code>count</code> を出力してください。</p>",
     "initial_code": "x = 100\ncount = 0\n# while文を書いて回数をカウントしてください\n\nprint(count)",
@@ -230,9 +240,9 @@
     "model_answer": "x = 100\ncount = 0\nwhile x >= 10:\n    x = x // 3\n    count += 1\nprint(count)"
   },
   {
-    "id": 24,
+    "id": 25,
     "category": "Step 7: 総合復習テスト",
-    "title": "第24問：【復習】辞書による最高得点者の探索",
+    "title": "第25問：【復習】辞書による最高得点者の探索",
     "description": "",
     "task": "<p>生徒名と点数の辞書 <code>results = {\"太郎\": 78, \"花子\": 92, \"次郎\": 85}</code> があります。<br>最も高い点数を取った生徒の<strong>「名前」</strong>を探し出して出力してください。</p>",
     "initial_code": "results = {\"太郎\": 78, \"花子\": 92, \"次郎\": 85}\ntop_name = \"\"\ntop_score = -1\n\n# 辞書をループして最高得点者の名前を探してください\n\nprint(top_name)",
@@ -240,9 +250,9 @@
     "model_answer": "results = {\"太郎\": 78, \"花子\": 92, \"次郎\": 85}\ntop_name = \"\"\ntop_score = -1\n\nfor name, score in results.items():\n    if score > top_score:\n        top_score = score\n        top_name = name\n\nprint(top_name)"
   },
   {
-    "id": 25,
+    "id": 26,
     "category": "Step 7: 総合復習テスト",
-    "title": "第25問：【復習】2次元リストの偶数カウント",
+    "title": "第26問：【復習】2次元リストの偶数カウント",
     "description": "",
     "task": "<p>3行3列の表 <code>grid = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]</code> があります。<br>二重ループを使い、グリッドの中に含まれる<strong>「偶数」の個数</strong>を数えて出力してください。</p>",
     "initial_code": "grid = [\n    [1, 2, 3],\n    [4, 5, 6],\n    [7, 8, 9]\n]\ncount = 0\n# 偶数を数えてください\n\nprint(count)",
