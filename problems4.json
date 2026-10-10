@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "category": "Step 1: 境界値とインデックス制御",
+    "title": "第1問：3日移動平均の計算",
+    "description": "<h4>【区間を固定して順に計算する】</h4><p>連続する数日分のデータをまとまりとして計算することを「移動平均」と呼びます。<br>3日分を合計する場合、注目する日を <code>i</code> とすると、当日は <code>data[i]</code>、翌日は <code>data[i + 1]</code>、2日後は <code>data[i + 2]</code> で表せます。<br>リストの終端を超えてアクセスするとエラー（IndexError）になるため、<strong>ループの終了位置を <code>len(data) - 2</code></strong> に設定して、はみ出さないようにするのが重要なポイントです。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonではスライスを使って <code>sum(sales[i:i+3])</code> のように3件分のまとまりを直接切り出して合計を求めることもできます。</p>",
+    "task": "<p>リスト <code>sales</code> に7日間の売上数が記録されています。<br>「初日から3日目」「2日目から4日目」のように、<strong>連続する3日間の平均売上数（整数の商 <code>//</code>）</strong>を順に計算し、結果をリスト <code>averages</code> に追加して出力してください。<br>※ <code>sum()</code> 等は使わず、インデックス参照（<code>i</code>, <code>i + 1</code>, <code>i + 2</code>）で計算してください。</p>",
+    "initial_code": "sales = [10, 20, 30, 40, 50, 60, 70]\n\n# ここに3日ごとの平均を計算するコードを書いてください\n\n",
+    "expected_output": "[20, 30, 40, 50, 60]",
+    "model_answer": "sales = [10, 20, 30, 40, 50, 60, 70]\n\naverages = []                 # 平均値を格納するリスト\n\nfor i in range(len(sales) - 2): # i + 2 が末尾を超えない範囲でループ\n    total_3days = sales[i] + sales[i + 1] + sales[i + 2] # 連続3日分の合計\n    avg = total_3days // 3    # 3で割って整数の平均を算出\n    averages.append(avg)      # リストに追加\n\nprint(averages)"
+  },
+  {
+    "id": 2,
+    "category": "Step 1: 境界値とインデックス制御",
+    "title": "第2問：山（ピーク）の検出",
+    "description": "<h4>【両隣と比較する探索】</h4><p>「前後の値よりも大きい場所（極大値）」を見つけるには、インデックス <code>i</code> の要素と、その直前 <code>data[i - 1]</code>、直後 <code>data[i + 1]</code> の両方を比較します。<br>リストの先頭（0番目）には前がなく、末尾には後がないため、<strong>調べる範囲を <code>range(1, len(data) - 1)</code></strong> にして両端を除外してループを回します。</p><h4>【考え方のポイント】</h4><p>グラフの山や谷を検出するアルゴリズムは、センサー値の急変検知やゲーム内の高低差判定など、多くの場面で応用されています。</p>",
+    "task": "<p>リスト <code>heights</code> に地形の標高データが記録されています。<br><strong>「直前の値よりも高く、かつ直後の値よりも高い」</strong>地点を山（ピーク）とみなします。<br>山となっている地点がリスト内に何箇所あるかをカウントし、その個数を出力してください。</p>",
+    "initial_code": "heights = [10, 25, 18, 30, 35, 20, 15, 28, 12]\n\n# ここに山の個数をカウントするコードを書いてください\n\n",
+    "expected_output": "3",
+    "model_answer": "heights = [10, 25, 18, 30, 35, 20, 15, 28, 12]\n\npeak_count = 0                # 山の個数のカウンタ\n\nfor i in range(1, len(heights) - 1): # 両端を除く範囲で走査\n    if heights[i] > heights[i - 1] and heights[i] > heights[i + 1]:\n        peak_count += 1       # 前後両方より高ければカウント\n\nprint(peak_count)"
+  },
+  {
+    "id": 3,
+    "category": "Step 1: 境界値とインデックス制御",
+    "title": "第3問：最大連続記録（最長ストリーク）",
+    "description": "<h4>【連続回数を数えて最大値を更新する】</h4><p>「特定の値が何回連続したか」の最大値を求めるには、<strong>「現在の連続回数を数えるカウンタ」</strong>と<strong>「これまでの最大連続記録を保持する変数」</strong>の2つを用意します。<br>値が一致したら現在のカウンタを <code>+ 1</code> し、もし過去の最大値を超えたら最大記録を更新します。値が途切れたら、現在のカウンタを <code>0</code> にリセットして仕切り直します。</p><h4>【Pythonの便利機能（参考）】</h4><p>最大記録の更新は <code>if current_count &gt; max_count: max_count = current_count</code> と書くほか、<code>max_count = max(max_count, current_count)</code> のように <code>max()</code> 関数を使って書くこともできます。</p>",
+    "task": "<p>リスト <code>results</code> にゲームの勝敗（勝ち: <code>1</code>, 負け: <code>0</code>）が記録されています。<br><code>1</code>（勝ち）が<strong>最も長く連続した回数（最大連勝数）</strong>を求めて出力してください。<br>※ <code>max()</code> 関数は使わずに条件分岐で最大値を管理してください。</p>",
+    "initial_code": "results = [1, 1, 0, 1, 1, 1, 1, 0, 1, 1]\n\n# ここに最大連勝数を計算するコードを書いてください\n# ※ max() 関数は使わないでください\n\n",
+    "expected_output": "4",
+    "model_answer": "results = [1, 1, 0, 1, 1, 1, 1, 0, 1, 1]\n\ncurrent_streak = 0            # 現在の連勝カウント\nmax_streak = 0                # これまでの最大連勝数\n\nfor r in results:\n    if r == 1:                # 勝ち（1）の場合\n        current_streak += 1   # 連勝数を1増やす\n        if current_streak > max_streak: # 最大記録を更新したら\n            max_streak = current_streak # 最大値を書き換える\n    else:                     # 負け（0）の場合\n        current_streak = 0    # 連勝カウントをリセット\n\nprint(max_streak)"
+  },
+  {
+    "id": 4,
+    "category": "Step 1: 境界値とインデックス制御",
+    "title": "第4問：値の挟み込み挿入位置の探索",
+    "description": "<h4>【並び順を崩さない位置を見つける】</h4><p>小さい順（昇順）に並んでいるリストに新しい数値 <code>x</code> を追加したい場合、<strong>「初めて <code>x &lt;= data[i]</code> となる位置（インデックス）」</strong>が正しい挿入場所になります。<br>先頭から順に比較していき、自分以上の値が見つかった時点でそのインデックスを記録して <code>break</code> します。もしリスト内のどの値よりも大きければ、末尾（<code>len(data)</code> の位置）が挿入場所となります。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonの標準ライブラリ（bisect）には、ソート済みリストの挿入位置を一瞬で計算できる専用の仕組みも備わっています。</p>",
+    "task": "<p>昇順に並んだリスト <code>numbers</code> に対して、新しい値 <code>target = 35</code> を大小関係を崩さずに挿入したいと考えています。<br><code>target</code> を<strong>挿入すべきインデックス番号</strong>を探索して出力してください。</p>",
+    "initial_code": "numbers = [10, 20, 30, 40, 50, 60]\ntarget = 35\n\n# ここに挿入すべきインデックスを探すコードを書いてください\n\n",
+    "expected_output": "3",
+    "model_answer": "numbers = [10, 20, 30, 40, 50, 60]\ntarget = 35\n\ninsert_index = len(numbers)   # 末尾を初期値（どの要素よりも大きい場合用）とする\n\nfor i in range(len(numbers)):\n    if target <= numbers[i]:  # 初めて自分以上の値が現れたら\n        insert_index = i      # その場所を挿入位置とする\n        break                 # 位置が確定したので終了\n\nprint(insert_index)"
+  },
+  {
+    "id": 5,
+    "category": "Step 2: 2次元リストとグリッド走査",
+    "title": "第5問：正方行列の対角線合計",
+    "description": "<h4>【対角線上の要素を取り出す】</h4><p>正方形のマス目（行数と列数が等しい2次元リスト）で「左上から右下への対角線」をたどる場合、マスの座標は <code>[0][0]</code>, <code>[1][1]</code>, <code>[2][2]</code> のように<strong>「行番号と列番号が常に同じ」</strong>になります。<br>そのため2重ループを回す必要はなく、単一のループ <code>for i in range(len(grid)):</code> を使って <code>grid[i][i]</code> を足し合わせていくのが最も効率的なアルゴリズムです。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonでは <code>sum(grid[i][i] for i in range(len(grid)))</code> のように、ループを組み合わせて1行で合計を求める書き方もよく使われます。</p>",
+    "task": "<p>3×3 の正方格子リスト <code>grid</code> があります。<br>左上から右下への<strong>対角線上に並ぶ3つの数値の合計</strong>を手動で計算し、その値を出力してください。<br>※ <code>sum()</code> などの便利関数は使わないでください。</p>",
+    "initial_code": "grid = [\n    [5, 2, 8],\n    [4, 9, 1],\n    [3, 7, 6]\n]\n\n# ここに対角線の合計を計算するコードを書いてください\n\n",
+    "expected_output": "20",
+    "model_answer": "grid = [\n    [5, 2, 8],\n    [4, 9, 1],\n    [3, 7, 6]\n]\n\ndiag_total = 0                 # 対角線の合計を入れる変数\n\nfor i in range(len(grid)):     # 行と列が同じ添字 i を走査\n    diag_total += grid[i][i]   # [0][0], [1][1], [2][2] を加算\n\nprint(diag_total)"
+  },
+  {
+    "id": 6,
+    "category": "Step 2: 2次元リストとグリッド走査",
+    "title": "第6問：2次元リスト内の最大値とその座標特定",
+    "description": "<h4>【最大値と位置（行・列）の同時追跡】</h4><p>2次元リスト全体から最大値を探すには、外側のループで行 <code>r</code>、内側のループで列 <code>c</code> を回す2重ループを使います。<br>暫定の最大値として <code>grid[0][0]</code> をセットしておき、より大きい値が見つかったら<strong>「最大値」「行インデックス」「列インデックス」の3つを同時に更新</strong>します。</p><h4>【考え方のポイント】</h4><p>表の中から最も優れた記録や異常値を探し出すだけでなく、「それが表のどの位置にあったか」を正確に把握する処理はデータ解析の基本です。</p>",
+    "task": "<p>3×3 の数値表 <code>matrix</code> があります。<br>表全体の中で<strong>最も大きい数値</strong>と、そのマスが存在する<strong>行インデックス・列インデックス</strong>を特定し、それぞれ改行して出力してください。<br>（1行目に最大値、2行目に行番号、3行目に列番号を出力）<br>※ 最大値は1箇所のみとします。<code>max()</code> 関数は使わないでください。</p>",
+    "initial_code": "matrix = [\n    [12, 45, 23],\n    [67, 34, 89],\n    [51, 78, 10]\n]\n\n# ここに最大値とその座標を探すコードを書いてください\n\n",
+    "expected_output": "89\n1\n2",
+    "model_answer": "matrix = [\n    [12, 45, 23],\n    [67, 34, 89],\n    [51, 78, 10]\n]\n\nmax_val = matrix[0][0]        # 左上を暫定の最大値とする\nmax_row = 0                   # 最大値のある行番号\nmax_col = 0                   # 最大値のある列番号\n\nfor r in range(len(matrix)):        # 各行を走査\n    for c in range(len(matrix[r])): # 各列を走査\n        if matrix[r][c] > max_val:  # より大きい値が見つかったら\n            max_val = matrix[r][c]  # 最大値を更新\n            max_row = r             # 行番号を記録\n            max_col = c             # 列番号を記録\n\nprint(max_val)\nprint(max_row)\nprint(max_col)"
+  },
+  {
+    "id": 7,
+    "category": "Step 2: 2次元リストとグリッド走査",
+    "title": "第7問：快適な空席のカウント（左右境界の判定）",
+    "description": "<h4>【両隣のチェックと端の例外処理】</h4><p>1列に並んだ座席で「自分自身が空席（<code>0</code>）であり、かつ左右の両隣も空席（<code>0</code>）」である席を探します。<br>ただし、<strong>先頭の席（インデックス0）には左隣がなく、末尾の席には右隣がない</strong>ため、単純に <code>seats[i-1]</code> や <code>seats[i+1]</code> を調べるとエラーや予期せぬ判定になります。最初から「両隣が存在する席」に絞って <code>range(1, len(seats) - 1)</code> でループを回すのが定石です。</p><h4>【考え方のポイント】</h4><p>配列の境界（先頭・末尾）を特別扱いするか、最初から対象から外すかを正しく判断する力は、共通テストのアルゴリズム問題で頻繁に試されます。</p>",
+    "task": "<p>リスト <code>seats</code> に横一列の座席の利用状況（空席: <code>0</code>, 着席中: <code>1</code>）が記録されています。<br><strong>「自身が空席（0）で、かつ左右両隣の席も空席（0）」</strong>となっている快適な空席がいくつあるかを数え、その個数を出力してください。<br>※ 左右両方に席が存在する座席のみを対象とします。</p>",
+    "initial_code": "seats = [1, 0, 0, 0, 1, 0, 0, 0, 0, 1]\n\n# ここに条件を満たす空席を数えるコードを書いてください\n\n",
+    "expected_output": "3",
+    "model_answer": "seats = [1, 0, 0, 0, 1, 0, 0, 0, 0, 1]\n\nquiet_seats = 0               # 快適な空席のカウンタ\n\nfor i in range(1, len(seats) - 1): # 左右両方に席がある範囲を走査\n    if seats[i] == 0:              # 自身が空席なら\n        if seats[i - 1] == 0 and seats[i + 1] == 0: # 左右も空席か確認\n            quiet_seats += 1       # 条件一致でカウント\n\nprint(quiet_seats)"
+  },
+  {
+    "id": 8,
+    "category": "Step 2: 2次元リストとグリッド走査",
+    "title": "第8問：全教科合格者のインデックス抽出",
+    "description": "<h4>【行ごとの条件判定とフラグの初期化】</h4><p>各生徒が複数の教科を受けているとき、「すべての教科が基準点以上か」を調べるには、<strong>外側のループ（生徒ごと）の中で毎回フラグ変数を <code>True</code> に初期化</strong>します。<br>内側のループで1つでも基準未満の教科が見つかったらフラグを <code>False</code> にして <code>break</code> します。内側のループを抜けた時点でフラグが <code>True</code> のままだった場合のみ、その生徒の出席番号（行インデックス）をリストに追加します。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonには「ループが break されずに最後まで回りきったときに実行される」<code>for-else</code> 構文があり、フラグ変数を使わずに同様の判定を行うことも可能です。</p>",
+    "task": "<p>4人の生徒の3教科のテスト結果が2次元リスト <code>results</code> に入っています。<br><strong>「3教科すべてが70点以上」</strong>である生徒の<strong>行インデックス番号（出席番号）</strong>を調べ、新しいリスト <code>passed_students</code> にまとめて出力してください。</p>",
+    "initial_code": "results = [\n    [75, 80, 70],  # 0番の生徒\n    [65, 90, 85],  # 1番の生徒\n    [80, 85, 90],  # 2番の生徒\n    [70, 72, 68]   # 3番の生徒\n]\n\n# ここに条件を満たす生徒の番号をリストにまとめるコードを書いてください\n\n",
+    "expected_output": "[0, 2]",
+    "model_answer": "results = [\n    [75, 80, 70],\n    [65, 90, 85],\n    [80, 85, 90],\n    [70, 72, 68]\n]\n\npassed_students = []          # 合格者の番号を入れるリスト\n\nfor i in range(len(results)): # 生徒ごとに走査\n    all_pass = True           # 生徒ごとに「全員合格」と仮定\n    for score in results[i]:  # その生徒の各教科を確認\n        if score < 70:        # 70点未満が1つでもあれば\n            all_pass = False  # フラグを倒す\n            break             # これ以上調べるのを終了\n    if all_pass:              # 全教科クリアしていたら\n        passed_students.append(i) # 出席番号を追加\n\nprint(passed_students)"
+  },
+  {
+    "id": 9,
+    "category": "Step 3: シミュレーションと状態遷移",
+    "title": "第9問：硬貨の最適枚数計算（貪欲法）",
+    "description": "<h4>【大きい硬貨から順に使う】</h4><p>お釣りの硬貨の総枚数を最も少なくするには、金額の大きい硬貨から優先して支払えるだけ支払う「貪欲法（どんよくほう）」を使います。<br>硬貨の額面リスト <code>[500, 100, 50, 10]</code> をループし、整数の商 <code>//</code> でその硬貨が何枚使えるかを計算して枚数に加算し、余り <code>%</code> で残りの金額を更新していきます。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonには「商と余りを同時に計算する」組み込み関数 <code>divmod(a, b)</code> があり、<code>coins, change = divmod(change, coin)</code> と書くことで1行で枚数計算と残額更新を同時に行えます。</p>",
+    "task": "<p>お釣り <code>change = 680</code> 円を支払うため、500円、100円、50円、10円の硬貨を大きい順にできるだけ多く使います。<br>支払いに必要な<strong>硬貨の「合計枚数」</strong>を計算し、出力してください。</p>",
+    "initial_code": "change = 680\ncoin_types = [500, 100, 50, 10]\n\n# ここに合計硬貨枚数を計算するコードを書いてください\n\n",
+    "expected_output": "6",
+    "model_answer": "change = 680\ncoin_types = [500, 100, 50, 10]\n\ntotal_coins = 0               # 硬貨の合計枚数\n\nfor coin in coin_types:       # 大きい額面の硬貨から順に計算\n    num = change // coin      # その硬貨を使える最大枚数\n    total_coins += num        # 枚数を加算\n    change = change % coin    # 残りの金額を更新\n\nprint(total_coins)"
+  },
+  {
+    "id": 10,
+    "category": "Step 3: シミュレーションと状態遷移",
+    "title": "第10問：在庫の引き落としと欠品日数シミュレーション",
+    "description": "<h4>【在庫の推移と終了判定】</h4><p>日々の注文を初期在庫から順に引き落としていき、在庫がマイナス（不足）になった時点でシミュレーションを打ち切ります。<br>「何日目か」を記録するためにインデックス番号かカウンタを利用します。在庫が注文数を下回ったら、<strong>「何日目か」と「何個不足したか（注文数 - 残り在庫）」</strong>を記録して <code>break</code> します。</p><h4>【考え方のポイント】</h4><p>日常の業務システムでも、在庫が切れたタイミングで自動発注やアラートを出すなど、状態がしきい値を下回った瞬間を捉える処理は基本となります。</p>",
+    "task": "<p>初期在庫が <code>stock = 50</code> 個あります。リスト <code>orders</code> には毎日の注文数が順に記録されています。<br>在庫から注文数を引き落としていき、<strong>初めて在庫が不足した「日数（1日目から数える）」と「不足した個数」</strong>を2行で出力してください。<br>（1行目に日数、2行目に不足個数を出力）</p>",
+    "initial_code": "stock = 50\norders = [15, 20, 10, 12, 18]\n\n# ここに在庫シミュレーションのコードを書いてください\n\n",
+    "expected_output": "4\n7",
+    "model_answer": "stock = 50\norders = [15, 20, 10, 12, 18]\n\nfor day in range(len(orders)):# 各日（0から始まるインデックス）を走査\n    req = orders[day]         # その日の注文数\n    if stock < req:           # 在庫が注文数より少なければ不足発生\n        shortage = req - stock# 不足した個数を計算\n        print(day + 1)        # 1日目始まりの日数を出力\n        print(shortage)       # 不足個数を出力\n        break                 # シミュレーション終了\n    stock -= req              # 在庫を引き落とす"
+  },
+  {
+    "id": 11,
+    "category": "Step 3: シミュレーションと状態遷移",
+    "title": "第11問：すごろくゲームのゴール到達判定",
+    "description": "<h4>【現在地の更新とイベント分岐】</h4><p>現在地を表す変数 <code>pos = 0</code> を用意し、サイコロの出目を順番に足していきます。<br>ただし「特定マス（落とし穴）に止まったら戻る」というルールがあるため、<strong>サイコロの目を足した直後に <code>pos</code> の値を <code>if</code> 文でチェック</strong>し、該当マスなら位置を補正します。</p><h4>【考え方のポイント】</h4><p>ゲームのマス目進行やロボットの移動制御など、「移動 → マスの効果発動 → 次の移動」という順序立てた状態更新の典型パターンです。</p>",
+    "task": "<p>スタート地点を <code>0</code> 番マスとします。<br>リスト <code>dice_rolls</code> の出目に従って順にマスを進めます。<br>ただし、<strong>「7番マス」にちょうど止まった場合は、罠にかかり「2マス戻る（5番マスになる）」</strong>ルールとします。<br>すべての出目を進め終えたあとの<strong>最終的な現在地マス番号</strong>を出力してください。</p>",
+    "initial_code": "dice_rolls = [3, 4, 2, 5]\n\n# ここに現在地をシミュレーションするコードを書いてください\n\n",
+    "expected_output": "10",
+    "model_answer": "dice_rolls = [3, 4, 2, 5]\n\npos = 0                       # スタート地点を0番マスとする\n\nfor roll in dice_rolls:       # サイコロの目を順に処理\n    pos += roll               # 出目の分だけ前進\n    if pos == 7:              # 7番マスに止まったら\n        pos -= 2              # 2マス戻る\n\nprint(pos)"
+  },
+  {
+    "id": 12,
+    "category": "Step 3: シミュレーションと状態遷移",
+    "title": "第12問：利用時間に応じた段階的料金計算",
+    "description": "<h4>【条件分岐と上限値（キャップ）】</h4><p>料金計算では「無料時間の判定」「端数時間の切り上げ計算」「最大料金の上限」を正しく組み合わせます。<br>有料時間を30分単位で切り上げるには、商 <code>//</code> に加えて「余り <code>%</code> があれば <code>+ 1</code> 区間分増やす」という条件判定を行います。最後に、計算した金額が最大料金を超えていれば最大料金に抑えます。</p><h4>【Pythonの便利機能（参考）】</h4><p>計算結果が一定値を超えないように抑える処理（上限キャップ）は、<code>fee = min(fee, 800)</code> のように <code>min()</code> 関数を使ってシンプルに表現することもできます。</p>",
+    "task": "<p>ある駐輪場の料金ルールは以下の通りです。<br>・最初の30分は「無料」<br>・30分を超えた分は「30分ごとに100円」（端数が出た場合も30分とみなして切り上げ）<br>・ただし1日の最大料金は「800円」<br><br>利用時間が <code>minutes = 145</code> 分のときの<strong>駐車料金</strong>を計算して出力してください。<br>※ <code>min()</code> 関数は使わずに <code>if</code> 文で上限処理を行ってください。</p>",
+    "initial_code": "minutes = 145\n\n# ここに料金を計算するコードを書いてください\n# ※ min() 関数は使わないでください\n\n",
+    "expected_output": "400",
+    "model_answer": "minutes = 145\n\nfee = 0                       # 料金の初期値\n\nif minutes > 30:              # 30分を超える場合のみ有料\n    extra = minutes - 30      # 有料分の時間\n    blocks = extra // 30      # 30分単位のブロック数\n    if extra % 30 > 0:        # 30分で割り切れない端数があれば\n        blocks += 1           # 1ブロック分切り上げ加算\n    fee = blocks * 100        # 1ブロック100円で計算\n\nif fee > 800:                 # 最大料金（800円）を超えていたら\n    fee = 800                 # 800円に抑える\n\nprint(fee)"
+  },
+  {
+    "id": 13,
+    "category": "Step 4: ソートと探索の応用アルゴリズム",
+    "title": "第13問：昇順ソート済みかどうかの確認",
+    "description": "<h4>【隣り合う要素の大小関係をチェック】</h4><p>リスト内のデータが「小さい順（昇順）」に整列されているかを調べるには、すべての隣り合うペアを先頭から順に比較します。<br>最初から昇順であると仮定（<code>is_sorted = True</code>）しておき、もし <strong><code>data[i] &gt; data[i + 1]</code>（前の方が大きいという逆転現象）が1箇所でも見つかったら、フラグを <code>False</code> にして <code>break</code></strong> でループを打ち切ります。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonでは並び替えを行う <code>sorted()</code> 関数があり、<code>data == sorted(data)</code> と比較することで並び順が昇順かどうかを確かめることもできます。</p>",
+    "task": "<p>リスト <code>numbers</code> の数値が完全に小さい順（昇順）に並んでいるかを判定してください。<br>昇順であれば <code>True</code>、1箇所でも順番の崩れ（逆転）があれば <code>False</code> を出力してください。<br>※ <code>sorted()</code> などの便利関数は使わないでください。</p>",
+    "initial_code": "numbers = [3, 8, 12, 19, 15, 24]\n\n# ここに昇順ソート済みかを判定するコードを書いてください\n\n",
+    "expected_output": "False",
+    "model_answer": "numbers = [3, 8, 12, 19, 15, 24]\n\nis_sorted = True              # 最初は「昇順である（True）」と仮定\n\nfor i in range(len(numbers) - 1): # i + 1 が末尾を超えない範囲で走査\n    if numbers[i] > numbers[i + 1]: # 前の方が大きければ順番が崩れている\n        is_sorted = False     # フラグをFalseに変更\n        break                 # 判定確定のため終了\n\nprint(is_sorted)"
+  },
+  {
+    "id": 14,
+    "category": "Step 4: ソートと探索の応用アルゴリズム",
+    "title": "第14問：度数分布表（ヒストグラム）の作成",
+    "description": "<h4>【点数区間ごとに人数を振り分ける】</h4><p>テストの点数（0〜100点）を20点刻みの5つの階級に分ける場合、要素数が5個の空集計リスト <code>counts = [0, 0, 0, 0, 0]</code> を準備します。<br>各点数を <code>20</code> で割った整数の商（<code>score // 20</code>）を計算すると、対応する区間のインデックス番号が得られます（例: 0〜19点は 0、20〜39点は 1）。ただし、<strong>満点の100点だけは商が 5 になってインデックス範囲外となるため、4番（80〜100点）にまとめる例外処理</strong>を入れるのがポイントです。</p><h4>【考え方のポイント】</h4><p>条件分岐をずらりと並べる代わりに、割り算の商をそのままリストのインデックスとして利用する計算テクニックは、統計データ集計でよく使われます。</p>",
+    "task": "<p>リスト <code>scores</code> の点数を以下の5つの区間に分類し、各区間の人数をまとめた要素数5のリスト <code>counts</code> を作成して出力してください。<br>・インデックス0: 0〜19点<br>・インデックス1: 20〜39点<br>・インデックス2: 40〜59点<br>・インデックス3: 60〜79点<br>・インデックス4: 80〜100点</p>",
+    "initial_code": "scores = [15, 82, 65, 40, 95, 78, 30, 100, 55]\n\n# ここに度数分布リストを作成するコードを書いてください\n\n",
+    "expected_output": "[1, 1, 2, 2, 3]",
+    "model_answer": "scores = [15, 82, 65, 40, 95, 78, 30, 100, 55]\n\ncounts = [0, 0, 0, 0, 0]      # 5区間分のカウンタを0で初期化\n\nfor s in scores:\n    idx = s // 20             # 20で割った商をインデックスとする\n    if idx == 5:              # 100点の場合は商が5になるため\n        idx = 4               # 最後の区間（80〜100点）に補正\n    counts[idx] += 1          # 該当区間の人数を1増やす\n\nprint(counts)"
+  },
+  {
+    "id": 15,
+    "category": "Step 4: ソートと探索の応用アルゴリズム",
+    "title": "第15問：重複要素の除外（手動ユニーク化）",
+    "description": "<h4>【ソート済みリストから重複を削る】</h4><p>昇順に並んだリストから重複を取り除いて1つずつにするには、新しいリスト <code>unique_data</code> を用意します。<br>先頭の要素は必ず追加し、2つ目以降の要素は<strong>「直前に新リストに追加した末尾の値（<code>unique_data[-1]</code>）と異なる場合のみ追加する」</strong>というルールを適用します。データが昇順に並んでいるため、同じ値は必ず連続して現れる性質を利用できます。</p><h4>【Pythonの便利機能（参考）】</h4><p>Pythonには重複を持たないデータ型である集合 <code>set</code> があり、<code>list(set(data))</code> と変換することで簡単に重複を消すことができます（ただし元の順序が崩れることがあります）。</p>",
+    "task": "<p>昇順に並んだリスト <code>numbers</code> には同じ数値が重複して含まれています。<br>重複した数値を省き、すべての数値が1回ずつだけ現れる新しいリスト <code>unique_numbers</code> を作成して出力してください。<br>※ <code>set()</code> などの集合型は使わずにループで作成してください。</p>",
+    "initial_code": "numbers = [1, 1, 2, 3, 3, 3, 5, 5, 8]\n\n# ここに重複を除外した新しいリストを作るコードを書いてください\n# ※ set() などは使わないでください\n\n",
+    "expected_output": "[1, 2, 3, 5, 8]",
+    "model_answer": "numbers = [1, 1, 2, 3, 3, 3, 5, 5, 8]\n\nunique_numbers = [numbers[0]] # 先頭の要素を最初に追加しておく\n\nfor i in range(1, len(numbers)): # 2番目の要素から順に確認\n    if numbers[i] != unique_numbers[-1]: # 新リストの末尾と異なるなら\n        unique_numbers.append(numbers[i]) # 初登場の値なので追加\n\nprint(unique_numbers)"
+  },
+  {
+    "id": 16,
+    "category": "Step 4: ソートと探索の応用アルゴリズム",
+    "title": "第16問：2つのソート済みリストのマージ",
+    "description": "<h4>【2つのポインタを進めて結合する】</h4><p>すでに小さい順に並んでいる2つのリスト <code>A</code> と <code>B</code> を、昇順を保ったまま1つのリスト <code>merged</code> にまとめる処理を「マージ（併合）」と呼びます。<br>それぞれのリストの位置を指すインデックス変数 <code>i</code> と <code>j</code> を <code>0</code> からスタートさせ、<strong><code>A[i]</code> と <code>B[j]</code> のうち小さい方を <code>merged</code> に追加してそのインデックスだけを <code>+ 1</code></strong> します。どちらか片方のリストを最後まで見終えたら、残ったもう片方の要素をそのまま末尾に追加して完了します。</p><h4>【考え方のポイント】</h4><p>この「2つのソート済み配列のマージ」は、高速な並び替えアルゴリズムである「マージソート」の根幹となる最重要手順です。</p>",
+    "task": "<p>それぞれ昇順に並んでいる2つのリスト <code>list_a</code> と <code>list_b</code> があります。<br>大小関係を保ったまま、1つの昇順リスト <code>merged</code> にまとめた結果を出力してください。<br>※ <code>sort()</code> や <code>sorted()</code> などの並び替え関数は使わずに、先頭から比較しながらまとめてください。</p>",
+    "initial_code": "list_a = [2, 5, 8]\nlist_b = [1, 4, 7, 9]\n\n# ここに2つのリストをマージするコードを書いてください\n# ※ sort() や sorted() は使わないでください\n\n",
+    "expected_output": "[1, 2, 4, 5, 7, 8, 9]",
+    "model_answer": "list_a = [2, 5, 8]\nlist_b = [1, 4, 7, 9]\n\nmerged = []                   # 合併先の空リスト\ni = 0                         # list_a の注目位置\nj = 0                         # list_b の注目位置\n\nwhile i < len(list_a) and j < len(list_b): # 両方にデータがある間比較\n    if list_a[i] <= list_b[j]:# list_a の方が小さいか等しければ\n        merged.append(list_a[i])\n        i += 1                # a の注目位置を1進める\n    else:                     # list_b の方が小さければ\n        merged.append(list_b[j])\n        j += 1                # b の注目位置を1進める\n\nwhile i < len(list_a):        # list_a に余りがあればすべて追加\n    merged.append(list_a[i])\n    i += 1\n\nwhile j < len(list_b):        # list_b に余りがあればすべて追加\n    merged.append(list_b[j])\n    j += 1\n\nprint(merged)"
+  },
+  {
+    "id": 17,
+    "category": "Step 5: 共通テスト総合実践演習",
+    "title": "第17問：中央値（メディアン）の手動算出",
+    "description": "",
+    "task": "<p>昇順に並んだ数値リスト <code>data</code> の<strong>中央値（メディアン）</strong>を手動で計算して出力してください。<br>・要素数が奇数の場合: ちょうど中央の要素<br>・要素数が偶数の場合: 中央の2つの要素の平均（整数の商 <code>//</code>）<br>※ 要素数 <code>len(data)</code> の偶奇を判定してインデックスを計算してください。</p>",
+    "initial_code": "data = [12, 18, 25, 33, 41, 50]  # 要素数6（偶数）\n\n# ここに中央値を計算するコードを書いてください\n\n",
+    "expected_output": "29",
+    "model_answer": "data = [12, 18, 25, 33, 41, 50]\n\nn = len(data)                 # 要素数を取得\n\nif n % 2 == 1:                # 奇数個の場合\n    median = data[n // 2]     # ちょうど真ん中の要素\nelse:                         # 偶数個の場合\n    mid1 = data[n // 2 - 1]   # 中央左側の要素\n    mid2 = data[n // 2]       # 中央右側の要素\n    median = (mid1 + mid2) // 2 # 2つの平均（整数）\n\nprint(median)"
+  },
+  {
+    "id": 18,
+    "category": "Step 5: 共通テスト総合実践演習",
+    "title": "第18問：特定区間の最大合計値探索",
+    "description": "",
+    "task": "<p>リスト <code>sales</code> に7日間の売上数が記録されています。<br><strong>「連続する3日間の売上合計」が最も大きかった区間の合計値</strong>を手動で探索し、その最大合計値を出力してください。<br>※ <code>max()</code> や <code>sum()</code> などの便利関数は使わないでください。</p>",
+    "initial_code": "sales = [20, 15, 40, 35, 10, 50, 25]\n\n# ここに3日間の最大売上合計を計算するコードを書いてください\n# ※ max() や sum() は使わないでください\n\n",
+    "expected_output": "95",
+    "model_answer": "sales = [20, 15, 40, 35, 10, 50, 25]\n\nmax_3days = 0                 # 暫定の最大合計値\n\nfor i in range(len(sales) - 2): # i + 2 が末尾を超えない範囲で走査\n    current_3days = sales[i] + sales[i + 1] + sales[i + 2] # 連続3日の合計\n    if current_3days > max_3days: # 過去の最大値を超えたら\n        max_3days = current_3days # 最大値を更新\n\nprint(max_3days)"
+  },
+  {
+    "id": 19,
+    "category": "Step 5: 共通テスト総合実践演習",
+    "title": "第19問：手動二分探索関数の作成",
+    "description": "",
+    "task": "<p>昇順に並んだリスト <code>data</code> と探したい値 <code>target</code> を受け取り、二分探索で位置を探す関数 <code>binary_search(data, target)</code> を作成してください。<br>目的の値が見つかればその<strong>インデックス番号</strong>を返し、存在しなければ <code>-1</code> を返します。<br>※ <code>.index()</code> メソッドや線形探索（先頭からの順次走査）は使わず、探索範囲の中央 <code>mid = (left + right) // 2</code> を比較して範囲を半分に絞り込むアルゴリズムを実装してください。</p>",
+    "initial_code": "def binary_search(data, target):\n    # ここに手動二分探索の処理を書いてください\n    pass\n\n\nnums = [11, 23, 35, 48, 62, 75, 89]\nprint(binary_search(nums, 62))\nprint(binary_search(nums, 50))\n",
+    "expected_output": "4\n-1",
+    "model_answer": "def binary_search(data, target):\n    left = 0                  # 探索範囲の左端\n    right = len(data) - 1     # 探索範囲の右端\n    while left <= right:      # 探索範囲が存在する間ループ\n        mid = (left + right) // 2 # 中央のインデックス\n        if data[mid] == target:   # 目的の値と一致したら\n            return mid        # 位置を返して終了\n        elif data[mid] < target:  # 中央の値が目標より小さければ\n            left = mid + 1    # 右半分に絞り込む\n        else:                 # 中央の値が目標より大きければ\n            right = mid - 1   # 左半分に絞り込む\n    return -1                 # 見つからなかった場合は -1 を返す\n\nnums = [11, 23, 35, 48, 62, 75, 89]\nprint(binary_search(nums, 62))\nprint(binary_search(nums, 50))"
+  },
+  {
+    "id": 20,
+    "category": "Step 5: 共通テスト総合実践演習",
+    "title": "第20問：ランレングス圧縮（手動圧縮リストの作成）",
+    "description": "",
+    "task": "<p>リスト <code>chars</code> に並んだ連続する同一文字を、<strong><code>[文字, 連続した回数]</code> というペアの2次元リスト</strong>に変換して出力してください。<br>（例: <code>['A', 'A', 'B']</code> → <code>[['A', 2], ['B', 1]]</code>）<br>※ 隣接比較を利用し、文字が変わったタイミングでペアを確定させて結果リストへ追加してください。</p>",
+    "initial_code": "chars = [\"A\", \"A\", \"A\", \"B\", \"B\", \"C\", \"C\", \"C\", \"C\", \"A\"]\n\n# ここにランレングス圧縮リストを作成するコードを書いてください\n\n",
+    "expected_output": "[['A', 3], ['B', 2], ['C', 4], ['A', 1]]",
+    "model_answer": "chars = [\"A\", \"A\", \"A\", \"B\", \"B\", \"C\", \"C\", \"C\", \"C\", \"A\"]\n\ncompressed = []               # 結果を格納するリスト\ncurrent_char = chars[0]       # 注目中の文字\ncount = 1                     # 連続カウント\n\nfor i in range(1, len(chars)): # 2文字目から走査\n    if chars[i] == current_char: # 前と同じ文字なら\n        count += 1            # カウントを増やす\n    else:                     # 別の文字に切り替わったら\n        compressed.append([current_char, count]) # 確定したペアを追加\n        current_char = chars[i] # 注目文字を更新\n        count = 1             # カウンタを1にリセット\n\ncompressed.append([current_char, count]) # 最後の文字グループを追加\n\nprint(compressed)"
+  }
+]
